@@ -4,10 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LTelep Controller</title>
-
-  <!-- Miro Web SDK v2 — MUSS geladen sein damit Miro die App als Panel registriert -->
   <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,169 +12,240 @@
       font-family: system-ui, -apple-system, sans-serif;
       background: #1a1a1a;
       color: #e0e0e0;
-      padding: 16px;
+      padding: 12px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
     h1 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: #888;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       border-bottom: 1px solid #333;
     }
 
     .status {
-      font-size: 12px;
+      font-size: 11px;
       color: #666;
       text-align: center;
-      padding: 6px;
+      padding: 5px;
       border-radius: 6px;
       background: #111;
       border: 1px solid #2a2a2a;
-      min-height: 32px;
+      min-height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: color 0.2s;
     }
-
     .status.ok    { color: #4CAF50; }
     .status.error { color: #e57373; }
     .status.info  { color: #64b5f6; }
 
-    .btn-row { display: flex; gap: 8px; }
+    /* --- Steuerungs-Sektion --- */
+    .controls-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .btn-row { display: flex; gap: 6px; }
 
     .btn {
       flex: 1;
-      padding: 12px 8px;
+      padding: 10px 4px;
       border: 1px solid #444;
       border-radius: 8px;
       background: #252525;
       color: #e0e0e0;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       transition: background 0.15s, border-color 0.15s, transform 0.1s;
       user-select: none;
     }
-
     .btn:hover  { background: #333; border-color: #666; }
     .btn:active { transform: scale(0.97); }
-
     .btn.play  { border-color: #4CAF50; }
     .btn.play:hover  { background: rgba(76, 175, 80, 0.2); }
     .btn.stop  { border-color: #e57373; }
     .btn.stop:hover  { background: rgba(229, 115, 115, 0.2); }
+    .btn-icon { font-size: 18px; line-height: 1; }
+    .btn-label { font-size: 10px; color: #888; }
 
-    .btn-icon { font-size: 20px; line-height: 1; }
-    .btn-label { font-size: 11px; color: #888; }
-
-    .nav-row { display: flex; gap: 8px; }
-
+    .nav-row { display: flex; gap: 6px; }
     .nav-btn {
       flex: 1;
-      padding: 10px;
+      padding: 8px;
       border: 1px solid #333;
       border-radius: 8px;
       background: #1e1e1e;
       color: #ccc;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
       transition: background 0.15s, border-color 0.15s;
     }
-
     .nav-btn:hover { background: #2a2a2a; border-color: #555; }
 
-    .speed-section { display: flex; flex-direction: column; gap: 8px; }
-
-    .speed-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
+    /* --- Speed --- */
+    .speed-section { display: flex; flex-direction: column; gap: 6px; }
+    .speed-header { display: flex; justify-content: space-between; align-items: center; }
     .speed-label {
-      font-size: 12px;
+      font-size: 11px;
       color: #888;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
-
     .speed-value {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: #4CAF50;
       font-variant-numeric: tabular-nums;
-      min-width: 36px;
+      min-width: 32px;
       text-align: right;
     }
-
     input[type="range"] {
       width: 100%;
       height: 4px;
       accent-color: #4CAF50;
       cursor: pointer;
     }
-
-    .speed-marks {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      color: #444;
-    }
-
-    .preset-row { display: flex; gap: 6px; }
-
+    .preset-row { display: flex; gap: 4px; }
     .preset-btn {
       flex: 1;
-      padding: 6px 4px;
+      padding: 4px 2px;
       border: 1px solid #333;
-      border-radius: 6px;
+      border-radius: 5px;
       background: #1a1a1a;
       color: #888;
-      font-size: 11px;
+      font-size: 10px;
       cursor: pointer;
-      text-align: center;
       transition: background 0.15s, color 0.15s;
     }
-
     .preset-btn:hover { background: #2a2a2a; color: #ccc; }
 
-    .hint {
+    /* --- Frame-Liste --- */
+    .frames-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .frames-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .frames-title {
       font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .refresh-btn {
+      background: transparent;
+      border: 1px solid #333;
+      color: #888;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .refresh-btn:hover { background: #2a2a2a; color: #ccc; }
+    .refresh-btn:disabled { opacity: 0.4; cursor: wait; }
+
+    .frame-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 350px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .frame-list::-webkit-scrollbar { width: 6px; }
+    .frame-list::-webkit-scrollbar-track { background: #111; }
+    .frame-list::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    .frame-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: #1e1e1e;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      text-align: left;
+      width: 100%;
+      color: #ccc;
+      font-size: 12px;
+      font-family: inherit;
+    }
+
+    .frame-item:hover {
+      background: #2a2a2a;
+      border-color: #4CAF50;
+    }
+
+    .frame-item-title {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .frame-item-import {
+      background: transparent;
+      border: 1px solid #333;
+      color: #666;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+    .frame-item-import:hover {
+      background: #2a2a2a;
+      color: #4CAF50;
+      border-color: #4CAF50;
+    }
+
+    .frame-empty {
+      text-align: center;
+      color: #444;
+      font-size: 11px;
+      padding: 20px 10px;
+      font-style: italic;
+    }
+
+    .hint {
+      font-size: 10px;
       color: #444;
       line-height: 1.5;
-      padding: 8px;
+      padding: 6px 8px;
       background: #111;
       border-radius: 6px;
       border-left: 2px solid #333;
     }
-
-    .dev-banner {
-      background: #2a1a00;
-      border: 1px solid #5a3a00;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 11px;
-      color: #d4a04a;
-      line-height: 1.5;
-    }
-
-    .dev-banner strong { color: #ffb74d; }
   </style>
 </head>
 <body>
@@ -186,83 +254,224 @@
 
   <div id="status" class="status">Bereit</div>
 
-  <div class="btn-row">
-    <button class="btn play" onclick="send('play')">
-      <span class="btn-icon">▶</span>
-      <span class="btn-label">Play</span>
-    </button>
-    <button class="btn stop" onclick="send('stop')">
-      <span class="btn-icon">⏹</span>
-      <span class="btn-label">Stop</span>
-    </button>
-  </div>
-
-  <div class="nav-row">
-    <button class="nav-btn" onclick="send('prev')">◀ Zurück</button>
-    <button class="nav-btn" onclick="send('next')">Weiter ▶</button>
-  </div>
-
-  <div class="speed-section">
-    <div class="speed-header">
-      <span class="speed-label">Geschwindigkeit</span>
-      <span class="speed-value" id="speed-display">1.5x</span>
-    </div>
-    <input
-      type="range"
-      id="speed-slider"
-      min="1"
-      max="100"
-      value="14"
-      oninput="onSpeedSlider(this.value)"
-      onchange="sendSpeed()"
-    />
-    <div class="speed-marks">
-      <span>Langsam</span>
-      <span>Mittel</span>
-      <span>Schnell</span>
+  <div class="controls-section">
+    <div class="btn-row">
+      <button class="btn play" onclick="send('play')">
+        <span class="btn-icon">▶</span>
+        <span class="btn-label">Play</span>
+      </button>
+      <button class="btn stop" onclick="send('stop')">
+        <span class="btn-icon">⏹</span>
+        <span class="btn-label">Stop</span>
+      </button>
     </div>
 
-    <div class="preset-row">
-      <button class="preset-btn" onclick="setSpeedPreset(0.5)">0.5×</button>
-      <button class="preset-btn" onclick="setSpeedPreset(1.0)">1.0×</button>
-      <button class="preset-btn" onclick="setSpeedPreset(1.5)">1.5×</button>
-      <button class="preset-btn" onclick="setSpeedPreset(2.5)">2.5×</button>
-      <button class="preset-btn" onclick="setSpeedPreset(4.0)">4.0×</button>
+    <div class="nav-row">
+      <button class="nav-btn" onclick="send('prev')">◀ Zurück</button>
+      <button class="nav-btn" onclick="send('next')">Weiter ▶</button>
+    </div>
+
+    <div class="speed-section">
+      <div class="speed-header">
+        <span class="speed-label">Tempo</span>
+        <span class="speed-value" id="speed-display">1.5x</span>
+      </div>
+      <input type="range" id="speed-slider" min="1" max="100" value="14"
+        oninput="onSpeedSlider(this.value)" onchange="sendSpeed()" />
+      <div class="preset-row">
+        <button class="preset-btn" onclick="setSpeedPreset(0.5)">0.5×</button>
+        <button class="preset-btn" onclick="setSpeedPreset(1.0)">1.0×</button>
+        <button class="preset-btn" onclick="setSpeedPreset(1.5)">1.5×</button>
+        <button class="preset-btn" onclick="setSpeedPreset(2.5)">2.5×</button>
+        <button class="preset-btn" onclick="setSpeedPreset(4.0)">4.0×</button>
+      </div>
     </div>
   </div>
 
-  <div class="dev-banner" id="dev-banner" style="display:none">
-    <strong>⚠ Entwicklungsmodus:</strong> Das <code>ltelep://</code> URL-Schema
-    ist nur im installierten LTelep-Build aktiv.
+  <div class="frames-section">
+    <div class="frames-header">
+      <span class="frames-title">Frames im Board</span>
+      <button id="refresh-btn" class="refresh-btn" onclick="loadFrames()">↻ Aktualisieren</button>
+    </div>
+    <div id="frame-list" class="frame-list">
+      <div class="frame-empty">Frames werden geladen…</div>
+    </div>
   </div>
 
   <div class="hint">
-    LTelep muss auf dem selben PC geöffnet sein.<br>
-    Shortcut zum Starten: <strong>Strg+Shift+Leertaste</strong>
+    Klick auf einen Frame: Miro zoomt + Teleprompter springt zum Sprechtext.
+    Der Import-Button (↓) holt den Doc-Inhalt in den Teleprompter.
   </div>
 
 <script>
-  // --------------------------------------------------------------------------
-  // Miro SDK Initialisierung
-  //
-  // WICHTIG: Ohne diesen Block erkennt Miro die App nicht als Panel und
-  // zeigt sie nicht in der "+" Liste an. miro.board.ui.on('icon:click')
-  // ist der minimal nötige Handler damit das App-Icon erscheint.
-  // --------------------------------------------------------------------------
+  // ==========================================================================
+  // State
+  // ==========================================================================
+  let currentBoardId   = null;
+  let currentBoardName = null;
+  let frames           = [];
+
+  // ==========================================================================
+  // Miro SDK Setup
+  // ==========================================================================
   if (typeof miro !== 'undefined') {
     miro.board.ui.on('icon:click', async () => {
-      // Wenn der User auf das App-Icon in der Sidebar klickt:
-      // öffne das Panel auf der rechten Seite
       await miro.board.ui.openPanel({ url: 'https://lprod-andi.github.io/ltelep-plugin/' });
     });
     console.log('[LTelep] Miro SDK initialisiert');
-  } else {
-    console.warn('[LTelep] Miro SDK nicht geladen — Panel läuft im Standalone-Modus');
+
+    // Wenn das Panel im Board geöffnet wird, sofort den Kontext laden
+    initBoardContext();
   }
 
-  // --------------------------------------------------------------------------
-  // Speed-Slider Logik
-  // --------------------------------------------------------------------------
+  async function initBoardContext() {
+    try {
+      const info = await miro.board.getInfo();
+      currentBoardId   = info.id;
+      currentBoardName = info.name || 'Miro Board';
+
+      // Teleprompter über den Board-Kontext informieren (zeigt Pending-Switch)
+      // urlencoding des Namens ist wichtig wegen Umlauten/Sonderzeichen
+      const encodedName = encodeURIComponent(currentBoardName);
+      send(`switch/${currentBoardId}/${encodedName}`, true /* silent */);
+
+      // Frames laden
+      loadFrames();
+    } catch (e) {
+      console.warn('[LTelep] Board-Kontext nicht verfügbar:', e);
+    }
+  }
+
+  // ==========================================================================
+  // Frame-Liste laden
+  // ==========================================================================
+  async function loadFrames() {
+    const listEl    = document.getElementById('frame-list');
+    const refreshEl = document.getElementById('refresh-btn');
+
+    if (typeof miro === 'undefined') {
+      listEl.innerHTML = '<div class="frame-empty">Plugin nur in Miro verfügbar</div>';
+      return;
+    }
+
+    refreshEl.disabled = true;
+    refreshEl.textContent = '↻ Lädt…';
+    listEl.innerHTML = '<div class="frame-empty">Frames werden geladen…</div>';
+
+    try {
+      const items = await miro.board.get({ type: 'frame' });
+      frames = items.map(f => ({
+        id:    f.id,
+        title: f.title || 'Ohne Titel',
+      }));
+
+      if (frames.length === 0) {
+        listEl.innerHTML = '<div class="frame-empty">Keine Frames im Board</div>';
+        return;
+      }
+
+      // Sortierung: nach Position auf dem Board (x dann y) — stabiler als
+      // alphabetisch, weil Frames oft "Frame 1, Frame 2..." heißen aber
+      // räumlich anders angeordnet sein können
+      const sortable = items
+        .map((item, idx) => ({ item, original: idx }))
+        .sort((a, b) => {
+          const ax = a.item.x ?? 0;
+          const bx = b.item.x ?? 0;
+          const ay = a.item.y ?? 0;
+          const by = b.item.y ?? 0;
+          // Räumliches Sortieren: zuerst nach grober Y-Reihe (Schritt 1000px),
+          // dann nach X innerhalb der Reihe
+          const ayRow = Math.floor(ay / 1000);
+          const byRow = Math.floor(by / 1000);
+          if (ayRow !== byRow) return ayRow - byRow;
+          return ax - bx;
+        });
+
+      frames = sortable.map(({ item }) => ({
+        id:    item.id,
+        title: item.title || 'Ohne Titel',
+      }));
+
+      renderFrameList();
+    } catch (e) {
+      console.error('[LTelep] Frames laden fehlgeschlagen:', e);
+      listEl.innerHTML = '<div class="frame-empty">Fehler beim Laden</div>';
+    } finally {
+      refreshEl.disabled = false;
+      refreshEl.textContent = '↻ Aktualisieren';
+    }
+  }
+
+  function renderFrameList() {
+    const listEl = document.getElementById('frame-list');
+    listEl.innerHTML = '';
+
+    for (const frame of frames) {
+      const item = document.createElement('div');
+      item.className = 'frame-item';
+
+      // Hauptklick: Miro zoomt + Teleprompter springt
+      const titleBtn = document.createElement('button');
+      titleBtn.className = 'frame-item-title';
+      titleBtn.style.background = 'transparent';
+      titleBtn.style.border = 'none';
+      titleBtn.style.color = 'inherit';
+      titleBtn.style.padding = '0';
+      titleBtn.style.cursor = 'pointer';
+      titleBtn.style.fontFamily = 'inherit';
+      titleBtn.style.fontSize = 'inherit';
+      titleBtn.style.textAlign = 'left';
+      titleBtn.textContent = frame.title;
+      titleBtn.title = `Klicken: Springe zu ${frame.title}`;
+      titleBtn.onclick = () => navigateToFrame(frame);
+
+      // Import-Button: einzelner Frame als Doc importieren
+      const importBtn = document.createElement('button');
+      importBtn.className = 'frame-item-import';
+      importBtn.textContent = '↓ Import';
+      importBtn.title = 'Doc-Inhalt dieses Frames in den Teleprompter holen';
+      importBtn.onclick = (e) => {
+        e.stopPropagation();
+        importFrame(frame);
+      };
+
+      item.appendChild(titleBtn);
+      item.appendChild(importBtn);
+      listEl.appendChild(item);
+    }
+  }
+
+  async function navigateToFrame(frame) {
+    setStatus(`→ ${frame.title}`, 'info');
+
+    // 1. In Miro zum Frame zoomen — sichtbares Feedback
+    try {
+      const items = await miro.board.get({ type: 'frame', id: frame.id });
+      if (items.length > 0) {
+        await miro.board.viewport.zoomTo(items[0]);
+      }
+    } catch (e) {
+      console.warn('[LTelep] Zoom fehlgeschlagen:', e);
+    }
+
+    // 2. Teleprompter über die Frame-ID informieren
+    send(`goto/${frame.id}`);
+
+    setTimeout(() => setStatus('Bereit', ''), 1500);
+  }
+
+  async function importFrame(frame) {
+    setStatus(`Importiere "${frame.title}"…`, 'info');
+    // Teleprompter holt sich den Doc-Inhalt über seinen eigenen API-Call.
+    // Wir senden ihm nur die Frame-ID, der Rest ist Rust.
+    send(`import-frame/${frame.id}`);
+    setTimeout(() => setStatus('Bereit', ''), 2500);
+  }
+
+  // ==========================================================================
+  // Speed-Slider
+  // ==========================================================================
   function sliderToSpeed(sliderVal) {
     const min  = Math.log10(0.1);
     const max  = Math.log10(10);
@@ -284,44 +493,32 @@
 
   function onSpeedSlider(val) {
     currentSpeed = sliderToSpeed(parseInt(val));
-    document.getElementById('speed-display').textContent =
-      currentSpeed.toFixed(1) + 'x';
+    document.getElementById('speed-display').textContent = currentSpeed.toFixed(1) + 'x';
   }
 
   function sendSpeed() {
     clearTimeout(sendTimer);
-    sendTimer = setTimeout(() => {
-      send('speed/' + currentSpeed.toFixed(1));
-    }, 200);
+    sendTimer = setTimeout(() => send('speed/' + currentSpeed.toFixed(1)), 200);
   }
 
   function setSpeedPreset(speed) {
     currentSpeed = speed;
     document.getElementById('speed-slider').value = speedToSlider(speed);
-    document.getElementById('speed-display').textContent =
-      speed.toFixed(1) + 'x';
+    document.getElementById('speed-display').textContent = speed.toFixed(1) + 'x';
     send('speed/' + speed.toFixed(1));
   }
 
-  // --------------------------------------------------------------------------
-  // send(command)
-  //
-  // Sendet ltelep:// Befehl an die installierte LTelep App.
-  // Innerhalb Miro: nutze miro.board.ui.openModal() oder window.open()
-  // als Fallback.
-  // --------------------------------------------------------------------------
-  function send(command) {
+  // ==========================================================================
+  // send(command) — ltelep:// URL Schema
+  // ==========================================================================
+  function send(command, silent) {
     const url = 'ltelep://' + command;
-    setStatus('Sende: ' + command, 'info');
-
+    if (!silent) setStatus('Sende: ' + command.split('/')[0], 'info');
     try {
-      // Methode: Link in neuem Tab/Fenster öffnen
-      // Custom-URL-Schemes werden vom OS abgefangen und an LTelep weitergeleitet
       window.open(url, '_blank');
-      setTimeout(() => setStatus('Bereit', ''), 1500);
+      if (!silent) setTimeout(() => setStatus('Bereit', ''), 1500);
     } catch (e) {
-      setStatus('Fehler: ' + e.message, 'error');
-      document.getElementById('dev-banner').style.display = 'block';
+      if (!silent) setStatus('Fehler: ' + e.message, 'error');
     }
   }
 
