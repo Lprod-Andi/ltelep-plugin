@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LTelep Controller</title>
+
+  <!-- Miro Web SDK v2 — MUSS geladen sein damit Miro die App als Panel registriert -->
+  <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+
   <style>
-    /* ----------------------------------------------------------------
-       Design: Dunkles Panel, passt zu Miro's Dark-Mode Ästhetik.
-       Farben absichtlich vom LTelep-Theme unabhängig — das ist ein
-       eigenständiges Miro-Plugin.
-    ---------------------------------------------------------------- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -33,7 +32,6 @@
       border-bottom: 1px solid #333;
     }
 
-    /* Status-Anzeige */
     .status {
       font-size: 12px;
       color: #666;
@@ -53,11 +51,7 @@
     .status.error { color: #e57373; }
     .status.info  { color: #64b5f6; }
 
-    /* Hauptbuttons */
-    .btn-row {
-      display: flex;
-      gap: 8px;
-    }
+    .btn-row { display: flex; gap: 8px; }
 
     .btn {
       flex: 1;
@@ -82,18 +76,13 @@
 
     .btn.play  { border-color: #4CAF50; }
     .btn.play:hover  { background: rgba(76, 175, 80, 0.2); }
-
     .btn.stop  { border-color: #e57373; }
     .btn.stop:hover  { background: rgba(229, 115, 115, 0.2); }
 
     .btn-icon { font-size: 20px; line-height: 1; }
     .btn-label { font-size: 11px; color: #888; }
 
-    /* Navigation */
-    .nav-row {
-      display: flex;
-      gap: 8px;
-    }
+    .nav-row { display: flex; gap: 8px; }
 
     .nav-btn {
       flex: 1;
@@ -113,12 +102,7 @@
 
     .nav-btn:hover { background: #2a2a2a; border-color: #555; }
 
-    /* Geschwindigkeits-Slider */
-    .speed-section {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .speed-section { display: flex; flex-direction: column; gap: 8px; }
 
     .speed-header {
       display: flex;
@@ -156,11 +140,7 @@
       color: #444;
     }
 
-    /* Preset-Buttons */
-    .preset-row {
-      display: flex;
-      gap: 6px;
-    }
+    .preset-row { display: flex; gap: 6px; }
 
     .preset-btn {
       flex: 1;
@@ -177,7 +157,6 @@
 
     .preset-btn:hover { background: #2a2a2a; color: #ccc; }
 
-    /* Hinweis-Box */
     .hint {
       font-size: 11px;
       color: #444;
@@ -188,9 +167,6 @@
       border-left: 2px solid #333;
     }
 
-    .hint a { color: #666; }
-
-    /* Dev-Mode Banner */
     .dev-banner {
       background: #2a1a00;
       border: 1px solid #5a3a00;
@@ -210,29 +186,22 @@
 
   <div id="status" class="status">Bereit</div>
 
-  <!-- Play / Stop -->
   <div class="btn-row">
-    <button class="btn play" onclick="send('play')" title="Teleprompter starten">
+    <button class="btn play" onclick="send('play')">
       <span class="btn-icon">▶</span>
       <span class="btn-label">Play</span>
     </button>
-    <button class="btn stop" onclick="send('stop')" title="Teleprompter stoppen">
+    <button class="btn stop" onclick="send('stop')">
       <span class="btn-icon">⏹</span>
       <span class="btn-label">Stop</span>
     </button>
   </div>
 
-  <!-- Prev / Next -->
   <div class="nav-row">
-    <button class="nav-btn" onclick="send('prev')" title="Vorherige Folie">
-      ◀ Zurück
-    </button>
-    <button class="nav-btn" onclick="send('next')" title="Nächste Folie">
-      Weiter ▶
-    </button>
+    <button class="nav-btn" onclick="send('prev')">◀ Zurück</button>
+    <button class="nav-btn" onclick="send('next')">Weiter ▶</button>
   </div>
 
-  <!-- Geschwindigkeit -->
   <div class="speed-section">
     <div class="speed-header">
       <span class="speed-label">Geschwindigkeit</span>
@@ -253,7 +222,6 @@
       <span>Schnell</span>
     </div>
 
-    <!-- Geschwindigkeits-Presets -->
     <div class="preset-row">
       <button class="preset-btn" onclick="setSpeedPreset(0.5)">0.5×</button>
       <button class="preset-btn" onclick="setSpeedPreset(1.0)">1.0×</button>
@@ -263,11 +231,9 @@
     </div>
   </div>
 
-  <!-- Dev-Hinweis: nur anzeigen wenn nicht installiert -->
   <div class="dev-banner" id="dev-banner" style="display:none">
     <strong>⚠ Entwicklungsmodus:</strong> Das <code>ltelep://</code> URL-Schema
-    ist nur im installierten Build aktiv. Für Tests bitte
-    <code>cargo tauri build</code> ausführen und den Installer starten.
+    ist nur im installierten LTelep-Build aktiv.
   </div>
 
   <div class="hint">
@@ -277,23 +243,32 @@
 
 <script>
   // --------------------------------------------------------------------------
-  // Geschwindigkeits-Mapping
+  // Miro SDK Initialisierung
   //
-  // Der Slider hat 100 Stufen (1–100). Das mappt logarithmisch auf 0.1–10.0
-  // damit kleine Werte feiner einstellbar sind als große.
-  // Formel: speed = 0.1 * (10^(slider/50))
-  //   Slider 14 ≈ 1.5x  (Standardwert)
-  //   Slider 50 ≈ 3.16x (Mitte)
-  //   Slider 100 ≈ 10x  (Maximum)
+  // WICHTIG: Ohne diesen Block erkennt Miro die App nicht als Panel und
+  // zeigt sie nicht in der "+" Liste an. miro.board.ui.on('icon:click')
+  // ist der minimal nötige Handler damit das App-Icon erscheint.
+  // --------------------------------------------------------------------------
+  if (typeof miro !== 'undefined') {
+    miro.board.ui.on('icon:click', async () => {
+      // Wenn der User auf das App-Icon in der Sidebar klickt:
+      // öffne das Panel auf der rechten Seite
+      await miro.board.ui.openPanel({ url: '/' });
+    });
+    console.log('[LTelep] Miro SDK initialisiert');
+  } else {
+    console.warn('[LTelep] Miro SDK nicht geladen — Panel läuft im Standalone-Modus');
+  }
+
+  // --------------------------------------------------------------------------
+  // Speed-Slider Logik
   // --------------------------------------------------------------------------
   function sliderToSpeed(sliderVal) {
-    // Logarithmische Skala: 0.1 bis 10.0
-    const min  = Math.log10(0.1); // -1
-    const max  = Math.log10(10);  //  1
-    const t    = (sliderVal - 1) / 99; // 0..1
+    const min  = Math.log10(0.1);
+    const max  = Math.log10(10);
+    const t    = (sliderVal - 1) / 99;
     const logV = min + t * (max - min);
-    const raw  = Math.pow(10, logV);
-    return Math.round(raw * 10) / 10;
+    return Math.round(Math.pow(10, logV) * 10) / 10;
   }
 
   function speedToSlider(speed) {
@@ -314,8 +289,6 @@
   }
 
   function sendSpeed() {
-    // Kurzes Debounce damit wir nicht bei jeder Slider-Bewegung einen
-    // URL-Aufruf machen — Miro öffnet für jeden Aufruf kurz ein Fenster
     clearTimeout(sendTimer);
     sendTimer = setTimeout(() => {
       send('speed/' + currentSpeed.toFixed(1));
@@ -333,42 +306,22 @@
   // --------------------------------------------------------------------------
   // send(command)
   //
-  // Sendet einen ltelep:// Befehl an die installierte LTelep App.
-  //
-  // Technisch: window.open('ltelep://...') triggert den OS-Handler,
-  // der den Tauri Deep-Link Handler aufruft. Bei Single-Instance
-  // (tauri-plugin-single-instance) wird die laufende Instanz aktiviert.
-  //
-  // Im Dev-Modus (nicht installiert) schlägt das still fehl —
-  // der Dev-Banner wird dann eingeblendet.
-  //
-  // WICHTIG: Miro-Panels laufen in einem iframe mit eingeschränkter
-  // Sandbox. window.open() mit einem custom scheme funktioniert in den
-  // meisten Browsern, aber Miro kann das verhindern. Falls das der Fall
-  // ist, nutze miro.board.openLink() als Fallback (SDK v2).
+  // Sendet ltelep:// Befehl an die installierte LTelep App.
+  // Innerhalb Miro: nutze miro.board.ui.openModal() oder window.open()
+  // als Fallback.
   // --------------------------------------------------------------------------
   function send(command) {
     const url = 'ltelep://' + command;
     setStatus('Sende: ' + command, 'info');
 
     try {
-      // Methode 1: window.open — Standard, funktioniert in den meisten Browsern
-      const result = window.open(url, '_self');
-
-      // Methode 2: Miro SDK openLink (falls SDK verfügbar und Methode 1 blockiert)
-      if (result === null || result === undefined) {
-        if (typeof miro !== 'undefined' && miro.board && miro.board.openLink) {
-          miro.board.openLink(url).catch(() => showDevBanner());
-        } else {
-          showDevBanner();
-        }
-      }
-
-      // Status kurz anzeigen dann zurücksetzen
+      // Methode: Link in neuem Tab/Fenster öffnen
+      // Custom-URL-Schemes werden vom OS abgefangen und an LTelep weitergeleitet
+      window.open(url, '_blank');
       setTimeout(() => setStatus('Bereit', ''), 1500);
     } catch (e) {
       setStatus('Fehler: ' + e.message, 'error');
-      showDevBanner();
+      document.getElementById('dev-banner').style.display = 'block';
     }
   }
 
@@ -378,15 +331,7 @@
     el.className   = 'status' + (type ? ' ' + type : '');
   }
 
-  function showDevBanner() {
-    document.getElementById('dev-banner').style.display = 'block';
-  }
-
-  // --------------------------------------------------------------------------
-  // Initialisierung
-  // --------------------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', () => {
-    // Slider-Initialwert setzen
     const slider = document.getElementById('speed-slider');
     slider.value = speedToSlider(1.5);
     onSpeedSlider(slider.value);
