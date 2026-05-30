@@ -77,11 +77,11 @@
     }
     .btn:hover  { background: #333; border-color: #666; }
     .btn:active { transform: scale(0.97); }
-    .btn.play  { border-color: #4CAF50; }
+    .btn.play   { border-color: #4CAF50; }
     .btn.play:hover  { background: rgba(76, 175, 80, 0.2); }
-    .btn.stop  { border-color: #e57373; }
+    .btn.stop   { border-color: #e57373; }
     .btn.stop:hover  { background: rgba(229, 115, 115, 0.2); }
-    .btn-icon { font-size: 18px; line-height: 1; }
+    .btn-icon  { font-size: 18px; line-height: 1; }
     .btn-label { font-size: 10px; color: #888; }
 
     .nav-row { display: flex; gap: 6px; }
@@ -100,64 +100,51 @@
 
     /* --- Speed --- */
     .speed-section { display: flex; flex-direction: column; gap: 6px; }
-    .speed-header { display: flex; justify-content: space-between; align-items: center; }
+    .speed-header  { display: flex; justify-content: space-between; align-items: center; }
     .speed-label {
-      font-size: 11px;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-size: 11px; color: #888;
+      text-transform: uppercase; letter-spacing: 0.06em;
     }
     .speed-value {
-      font-size: 13px;
-      font-weight: 700;
-      color: #4CAF50;
+      font-size: 13px; font-weight: 700; color: #4CAF50;
       font-variant-numeric: tabular-nums;
-      min-width: 32px;
-      text-align: right;
+      min-width: 32px; text-align: right;
     }
     input[type="range"] {
-      width: 100%;
-      height: 4px;
-      accent-color: #4CAF50;
-      cursor: pointer;
+      width: 100%; height: 4px;
+      accent-color: #4CAF50; cursor: pointer;
     }
     .preset-row { display: flex; gap: 4px; }
     .preset-btn {
-      flex: 1;
-      padding: 4px 2px;
-      border: 1px solid #333;
-      border-radius: 5px;
-      background: #1a1a1a;
-      color: #888;
-      font-size: 10px;
-      cursor: pointer;
+      flex: 1; padding: 4px 2px;
+      border: 1px solid #333; border-radius: 5px;
+      background: #1a1a1a; color: #888;
+      font-size: 10px; cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
     .preset-btn:hover { background: #2a2a2a; color: #ccc; }
 
     /* --- Frame-Liste --- */
     .frames-section {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-      min-height: 0;
+      display: flex; flex-direction: column;
+      gap: 8px; flex: 1; min-height: 0;
     }
 
     .frames-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 6px;
     }
 
     .frames-title {
-      font-size: 11px;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-size: 11px; color: #888;
+      text-transform: uppercase; letter-spacing: 0.06em;
     }
 
-    .refresh-btn {
+    .frames-header-btns {
+      display: flex; gap: 4px;
+    }
+
+    .header-btn {
       background: transparent;
       border: 1px solid #333;
       color: #888;
@@ -165,18 +152,29 @@
       border-radius: 4px;
       font-size: 10px;
       cursor: pointer;
-      transition: background 0.15s, color 0.15s;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
     }
-    .refresh-btn:hover { background: #2a2a2a; color: #ccc; }
-    .refresh-btn:disabled { opacity: 0.4; cursor: wait; }
+    .header-btn:hover { background: #2a2a2a; color: #ccc; border-color: #555; }
+    .header-btn:disabled { opacity: 0.4; cursor: wait; }
+
+    .header-btn.selection {
+      border-color: #3a5a3a;
+      color: #4CAF50;
+    }
+    .header-btn.selection:hover {
+      background: rgba(76, 175, 80, 0.15);
+      color: #6fcf72;
+    }
+    .header-btn.selection:disabled {
+      opacity: 0.4;
+      color: #4CAF50;
+    }
 
     .frame-list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      max-height: 350px;
-      overflow-y: auto;
-      padding-right: 2px;
+      display: flex; flex-direction: column;
+      gap: 3px; max-height: 400px;
+      overflow-y: auto; padding-right: 2px;
     }
 
     .frame-list::-webkit-scrollbar { width: 6px; }
@@ -184,24 +182,30 @@
     .frame-list::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
     .frame-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 10px;
+      display: flex; align-items: center;
+      gap: 6px; padding: 7px 10px;
       background: #1e1e1e;
       border: 1px solid #2a2a2a;
       border-radius: 6px;
-      cursor: pointer;
       transition: background 0.15s, border-color 0.15s;
-      text-align: left;
-      width: 100%;
-      color: #ccc;
-      font-size: 12px;
-      font-family: inherit;
     }
 
     .frame-item:hover {
-      background: #2a2a2a;
+      background: #252525;
+      border-color: #444;
+    }
+
+    .frame-item-indicator {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #333;
+      border: 1px solid #444;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .frame-item-indicator.in-script {
+      background: #4CAF50;
       border-color: #4CAF50;
     }
 
@@ -210,23 +214,56 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      background: transparent;
+      border: none;
+      color: #ccc;
+      padding: 0;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      text-align: left;
+      transition: color 0.15s;
+    }
+    .frame-item-title:hover { color: #fff; }
+
+    .frame-item-actions {
+      display: flex;
+      gap: 3px;
+      flex-shrink: 0;
     }
 
-    .frame-item-import {
+    .frame-action-btn {
       background: transparent;
       border: 1px solid #333;
       color: #666;
-      padding: 3px 6px;
+      width: 26px; height: 24px;
       border-radius: 4px;
-      font-size: 9px;
+      font-size: 11px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: background 0.15s, color 0.15s, border-color 0.15s;
-      flex-shrink: 0;
     }
-    .frame-item-import:hover {
+
+    .frame-action-btn.import:hover {
       background: #2a2a2a;
       color: #4CAF50;
       border-color: #4CAF50;
+    }
+
+    .frame-action-btn.remove {
+      display: none;
+    }
+
+    .frame-item.is-in-script .frame-action-btn.remove {
+      display: flex;
+    }
+
+    .frame-action-btn.remove:hover {
+      background: rgba(229, 115, 115, 0.15);
+      color: #e57373;
+      border-color: #e57373;
     }
 
     .frame-empty {
@@ -238,14 +275,23 @@
     }
 
     .hint {
-      font-size: 10px;
-      color: #444;
-      line-height: 1.5;
-      padding: 6px 8px;
-      background: #111;
-      border-radius: 6px;
+      font-size: 10px; color: #444;
+      line-height: 1.5; padding: 6px 8px;
+      background: #111; border-radius: 6px;
       border-left: 2px solid #333;
     }
+
+    .selection-info {
+      display: none;
+      font-size: 10px;
+      color: #4CAF50;
+      background: rgba(76, 175, 80, 0.08);
+      border: 1px solid #3a5a3a;
+      border-radius: 5px;
+      padding: 5px 8px;
+      text-align: center;
+    }
+    .selection-info.visible { display: block; }
   </style>
 </head>
 <body>
@@ -291,16 +337,31 @@
   <div class="frames-section">
     <div class="frames-header">
       <span class="frames-title">Frames im Board</span>
-      <button id="refresh-btn" class="refresh-btn" onclick="loadFrames()">↻ Aktualisieren</button>
+      <div class="frames-header-btns">
+        <button id="selection-btn" class="header-btn selection"
+          onclick="importSelection()" title="Ausgewählte Frames im Board importieren">
+          ✦ Selektion
+        </button>
+        <button id="refresh-btn" class="header-btn" onclick="loadFrames()">
+          ↻ Aktualisieren
+        </button>
+      </div>
     </div>
+
+    <div id="selection-info" class="selection-info">
+      Wähle Frames im Board aus, dann klicke "✦ Selektion".
+    </div>
+
     <div id="frame-list" class="frame-list">
       <div class="frame-empty">Frames werden geladen…</div>
     </div>
   </div>
 
   <div class="hint">
-    Klick auf einen Frame: Miro zoomt + Teleprompter springt zum Sprechtext.
-    Der Import-Button (↓) holt den Doc-Inhalt in den Teleprompter.
+    <strong>Klick auf Frame-Name:</strong> Miro zoomt (halber Zoom) + Teleprompter springt.<br>
+    <strong>↓</strong> = Doc importieren &nbsp;|&nbsp;
+    <strong>✕</strong> = aus Skript entfernen &nbsp;|&nbsp;
+    <strong>●</strong> = im Skript vorhanden
   </div>
 
 <script>
@@ -310,17 +371,18 @@
   let currentBoardId   = null;
   let currentBoardName = null;
   let frames           = [];
+  let inScriptIds      = new Set();
 
   // ==========================================================================
   // Miro SDK Setup
   // ==========================================================================
   if (typeof miro !== 'undefined') {
     miro.board.ui.on('icon:click', async () => {
-      await miro.board.ui.openPanel({ url: 'https://lprod-andi.github.io/ltelep-plugin/' });
+      await miro.board.ui.openPanel({
+        url: 'https://lprod-andi.github.io/ltelep-plugin/'
+      });
     });
     console.log('[LTelep] Miro SDK initialisiert');
-
-    // Wenn das Panel im Board geöffnet wird, sofort den Kontext laden
     initBoardContext();
   }
 
@@ -330,12 +392,9 @@
       currentBoardId   = info.id;
       currentBoardName = info.name || 'Miro Board';
 
-      // Teleprompter über den Board-Kontext informieren (zeigt Pending-Switch)
-      // urlencoding des Namens ist wichtig wegen Umlauten/Sonderzeichen
       const encodedName = encodeURIComponent(currentBoardName);
-      send(`switch/${currentBoardId}/${encodedName}`, true /* silent */);
+      send(`switch/${currentBoardId}/${encodedName}`, true);
 
-      // Frames laden
       loadFrames();
     } catch (e) {
       console.warn('[LTelep] Board-Kontext nicht verfügbar:', e);
@@ -360,37 +419,25 @@
 
     try {
       const items = await miro.board.get({ type: 'frame' });
-      frames = items.map(f => ({
-        id:    f.id,
-        title: f.title || 'Ohne Titel',
-      }));
 
-      if (frames.length === 0) {
+      if (items.length === 0) {
+        frames = [];
         listEl.innerHTML = '<div class="frame-empty">Keine Frames im Board</div>';
         return;
       }
 
-      // Sortierung: nach Position auf dem Board (x dann y) — stabiler als
-      // alphabetisch, weil Frames oft "Frame 1, Frame 2..." heißen aber
-      // räumlich anders angeordnet sein können
-      const sortable = items
-        .map((item, idx) => ({ item, original: idx }))
-        .sort((a, b) => {
-          const ax = a.item.x ?? 0;
-          const bx = b.item.x ?? 0;
-          const ay = a.item.y ?? 0;
-          const by = b.item.y ?? 0;
-          // Räumliches Sortieren: zuerst nach grober Y-Reihe (Schritt 1000px),
-          // dann nach X innerhalb der Reihe
-          const ayRow = Math.floor(ay / 1000);
-          const byRow = Math.floor(by / 1000);
-          if (ayRow !== byRow) return ayRow - byRow;
-          return ax - bx;
-        });
+      // Räumlich sortieren: Y-Reihe (1000px Schritte) dann X
+      const sorted = [...items].sort((a, b) => {
+        const ayRow = Math.floor((a.y ?? 0) / 1000);
+        const byRow = Math.floor((b.y ?? 0) / 1000);
+        if (ayRow !== byRow) return ayRow - byRow;
+        return (a.x ?? 0) - (b.x ?? 0);
+      });
 
-      frames = sortable.map(({ item }) => ({
-        id:    item.id,
-        title: item.title || 'Ohne Titel',
+      frames = sorted.map(item => ({
+        id:       item.id,
+        title:    item.title || 'Ohne Titel',
+        miroItem: item,
       }));
 
       renderFrameList();
@@ -408,65 +455,180 @@
     listEl.innerHTML = '';
 
     for (const frame of frames) {
-      const item = document.createElement('div');
-      item.className = 'frame-item';
+      const isInScript = inScriptIds.has(frame.id);
 
-      // Hauptklick: Miro zoomt + Teleprompter springt
+      const item = document.createElement('div');
+      item.className = 'frame-item' + (isInScript ? ' is-in-script' : '');
+      item.dataset.frameId = frame.id;
+
+      // Status-Indikator (Punkt)
+      const indicator = document.createElement('div');
+      indicator.className = 'frame-item-indicator' + (isInScript ? ' in-script' : '');
+      indicator.title = isInScript ? 'Im Skript vorhanden' : 'Nicht im Skript';
+
+      // Klickbarer Titel
       const titleBtn = document.createElement('button');
       titleBtn.className = 'frame-item-title';
-      titleBtn.style.background = 'transparent';
-      titleBtn.style.border = 'none';
-      titleBtn.style.color = 'inherit';
-      titleBtn.style.padding = '0';
-      titleBtn.style.cursor = 'pointer';
-      titleBtn.style.fontFamily = 'inherit';
-      titleBtn.style.fontSize = 'inherit';
-      titleBtn.style.textAlign = 'left';
       titleBtn.textContent = frame.title;
-      titleBtn.title = `Klicken: Springe zu ${frame.title}`;
+      titleBtn.title = `Zu "${frame.title}" springen`;
       titleBtn.onclick = () => navigateToFrame(frame);
 
-      // Import-Button: einzelner Frame als Doc importieren
-      const importBtn = document.createElement('button');
-      importBtn.className = 'frame-item-import';
-      importBtn.textContent = '↓ Import';
-      importBtn.title = 'Doc-Inhalt dieses Frames in den Teleprompter holen';
-      importBtn.onclick = (e) => {
-        e.stopPropagation();
-        importFrame(frame);
-      };
+      // Action-Buttons
+      const actions = document.createElement('div');
+      actions.className = 'frame-item-actions';
 
+      const importBtn = document.createElement('button');
+      importBtn.className = 'frame-action-btn import';
+      importBtn.innerHTML = '↓';
+      importBtn.title = 'Frame in Teleprompter importieren';
+      importBtn.onclick = (e) => { e.stopPropagation(); importFrame(frame); };
+
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'frame-action-btn remove';
+      removeBtn.innerHTML = '✕';
+      removeBtn.title = 'Frame aus Teleprompter-Skript entfernen';
+      removeBtn.onclick = (e) => { e.stopPropagation(); removeFrame(frame); };
+
+      actions.appendChild(importBtn);
+      actions.appendChild(removeBtn);
+
+      item.appendChild(indicator);
       item.appendChild(titleBtn);
-      item.appendChild(importBtn);
+      item.appendChild(actions);
       listEl.appendChild(item);
     }
   }
 
+  // ==========================================================================
+  // Frame-Navigation: Half-Zoom + Teleprompter Goto
+  // ==========================================================================
   async function navigateToFrame(frame) {
     setStatus(`→ ${frame.title}`, 'info');
 
-    // 1. In Miro zum Frame zoomen — sichtbares Feedback
     try {
       const items = await miro.board.get({ type: 'frame', id: frame.id });
       if (items.length > 0) {
+        // Erst normal zoomTo
         await miro.board.viewport.zoomTo(items[0]);
+
+        // Dann Viewport verdoppeln = halber Zoom.
+        // Der Frame nimmt ca. die Hälfte des Bildschirms ein,
+        // drumherum sieht man Board-Kontext.
+        try {
+          const vp = await miro.board.viewport.get();
+          await miro.board.viewport.set({
+            viewport: {
+              x:      vp.x - vp.width  / 2,
+              y:      vp.y - vp.height / 2,
+              width:  vp.width  * 2,
+              height: vp.height * 2,
+            }
+          });
+        } catch (vpErr) {
+          // Falls viewport.set nicht verfügbar: der zoomTo hat trotzdem geklappt
+          console.warn('[LTelep] Half-zoom nicht möglich:', vpErr);
+        }
       }
     } catch (e) {
       console.warn('[LTelep] Zoom fehlgeschlagen:', e);
     }
 
-    // 2. Teleprompter über die Frame-ID informieren
     send(`goto/${frame.id}`);
-
     setTimeout(() => setStatus('Bereit', ''), 1500);
   }
 
-  async function importFrame(frame) {
+  // ==========================================================================
+  // Einzel-Frame Import / Remove
+  // ==========================================================================
+  function importFrame(frame) {
     setStatus(`Importiere "${frame.title}"…`, 'info');
-    // Teleprompter holt sich den Doc-Inhalt über seinen eigenen API-Call.
-    // Wir senden ihm nur die Frame-ID, der Rest ist Rust.
     send(`import-frame/${frame.id}`);
+    inScriptIds.add(frame.id);
+    updateFrameItemStatus(frame.id, true);
     setTimeout(() => setStatus('Bereit', ''), 2500);
+  }
+
+  function removeFrame(frame) {
+    setStatus(`Entferne "${frame.title}"…`, 'info');
+    send(`remove-frame/${frame.id}`);
+    inScriptIds.delete(frame.id);
+    updateFrameItemStatus(frame.id, false);
+    setTimeout(() => setStatus('Bereit', ''), 2000);
+  }
+
+  // ==========================================================================
+  // Selektion importieren
+  //
+  // User wählt 1-N Frames im Board → klickt "✦ Selektion" → wir senden
+  // für jeden Frame ein einzelnes ltelep://import-frame/<id> mit 250ms Delay.
+  // Der Teleprompter sammelt sie via Batch-Tracking (800ms Fenster) und
+  // zeigt am Ende einen Sammel-Toast.
+  // ==========================================================================
+  async function importSelection() {
+    const selBtn = document.getElementById('selection-btn');
+    const infoEl = document.getElementById('selection-info');
+
+    if (typeof miro === 'undefined') {
+      setStatus('Plugin nur in Miro verfügbar', 'error');
+      return;
+    }
+
+    selBtn.disabled = true;
+    selBtn.textContent = '⏳ Lädt…';
+
+    try {
+      const selection = await miro.board.getSelection();
+      const selectedFrames = selection.filter(item => item.type === 'frame');
+
+      if (selectedFrames.length === 0) {
+        setStatus('Keine Frames ausgewählt — wähle erst Frames im Board', 'error');
+        infoEl.classList.add('visible');
+        setTimeout(() => infoEl.classList.remove('visible'), 5000);
+        return;
+      }
+
+      setStatus(`Importiere ${selectedFrames.length} Frames…`, 'info');
+
+      for (let i = 0; i < selectedFrames.length; i++) {
+        const frame = selectedFrames[i];
+        send(`import-frame/${frame.id}`, true);
+        inScriptIds.add(frame.id);
+        updateFrameItemStatus(frame.id, true);
+
+        if (i < selectedFrames.length - 1) {
+          await new Promise(r => setTimeout(r, 250));
+        }
+      }
+
+      setStatus(`✓ ${selectedFrames.length} Frames gesendet`, 'ok');
+      setTimeout(() => setStatus('Bereit', ''), 3000);
+    } catch (e) {
+      console.error('[LTelep] Selektion importieren fehlgeschlagen:', e);
+      setStatus('Fehler: ' + e.message, 'error');
+    } finally {
+      selBtn.disabled = false;
+      selBtn.textContent = '✦ Selektion';
+    }
+  }
+
+  // ==========================================================================
+  // Frame-Status in der UI aktualisieren (ohne Re-Render)
+  // ==========================================================================
+  function updateFrameItemStatus(frameId, isInScript) {
+    const item = document.querySelector(`.frame-item[data-frame-id="${frameId}"]`);
+    if (!item) return;
+
+    if (isInScript) {
+      item.classList.add('is-in-script');
+    } else {
+      item.classList.remove('is-in-script');
+    }
+
+    const indicator = item.querySelector('.frame-item-indicator');
+    if (indicator) {
+      indicator.classList.toggle('in-script', isInScript);
+      indicator.title = isInScript ? 'Im Skript vorhanden' : 'Nicht im Skript';
+    }
   }
 
   // ==========================================================================
