@@ -7,70 +7,34 @@
   <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: #1a1a1a;
-      color: #e0e0e0;
-      padding: 12px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      background: #1a1a1a; color: #e0e0e0;
+      padding: 12px; min-height: 100vh;
+      display: flex; flex-direction: column; gap: 12px;
     }
-
     h1 {
       font-size: 13px; font-weight: 700; color: #888;
       text-transform: uppercase; letter-spacing: 0.08em;
       padding-bottom: 6px; border-bottom: 1px solid #333;
     }
-
     .status {
-      font-size: 11px; color: #666;
-      text-align: center; padding: 5px;
-      border-radius: 6px; background: #111;
-      border: 1px solid #2a2a2a;
-      min-height: 28px;
-      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #666; text-align: center; padding: 5px;
+      border-radius: 6px; background: #111; border: 1px solid #2a2a2a;
+      min-height: 28px; display: flex; align-items: center; justify-content: center;
       transition: color 0.2s;
     }
     .status.ok    { color: #4CAF50; }
     .status.error { color: #e57373; }
     .status.info  { color: #64b5f6; }
 
-    /* Connection banner */
-    .connection-banner {
-      display: none;
-      font-size: 10px; padding: 6px 8px;
-      border-radius: 5px; text-align: center;
-      line-height: 1.4;
-    }
-    .connection-banner.connected {
-      display: block; color: #4CAF50;
-      background: rgba(76,175,80,0.08);
-      border: 1px solid #3a5a3a;
-    }
-    .connection-banner.disconnected {
-      display: block; color: #e57373;
-      background: rgba(229,115,115,0.08);
-      border: 1px solid #5a3a3a;
-    }
-
-    .controls-section {
-      display: flex; flex-direction: column; gap: 8px;
-      padding-bottom: 10px; border-bottom: 1px solid #2a2a2a;
-    }
-
+    .controls-section { display: flex; flex-direction: column; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid #2a2a2a; }
     .btn-row { display: flex; gap: 6px; }
-
     .btn {
-      flex: 1; padding: 10px 4px;
-      border: 1px solid #444; border-radius: 8px;
-      background: #252525; color: #e0e0e0;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      transition: background 0.15s, border-color 0.15s, transform 0.1s;
-      user-select: none;
+      flex: 1; padding: 10px 4px; border: 1px solid #444; border-radius: 8px;
+      background: #252525; color: #e0e0e0; font-size: 12px; font-weight: 600;
+      cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s; user-select: none;
     }
     .btn:hover  { background: #333; border-color: #666; }
     .btn:active { transform: scale(0.97); }
@@ -83,10 +47,8 @@
 
     .nav-row { display: flex; gap: 6px; }
     .nav-btn {
-      flex: 1; padding: 8px;
-      border: 1px solid #333; border-radius: 8px;
-      background: #1e1e1e; color: #ccc;
-      font-size: 12px; cursor: pointer;
+      flex: 1; padding: 8px; border: 1px solid #333; border-radius: 8px;
+      background: #1e1e1e; color: #ccc; font-size: 12px; cursor: pointer;
       transition: background 0.15s, border-color 0.15s;
     }
     .nav-btn:hover { background: #2a2a2a; border-color: #555; }
@@ -98,10 +60,8 @@
     input[type="range"] { width: 100%; height: 4px; accent-color: #4CAF50; cursor: pointer; }
     .preset-row { display: flex; gap: 4px; }
     .preset-btn {
-      flex: 1; padding: 4px 2px;
-      border: 1px solid #333; border-radius: 5px;
-      background: #1a1a1a; color: #888;
-      font-size: 10px; cursor: pointer;
+      flex: 1; padding: 4px 2px; border: 1px solid #333; border-radius: 5px;
+      background: #1a1a1a; color: #888; font-size: 10px; cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
     .preset-btn:hover { background: #2a2a2a; color: #ccc; }
@@ -110,19 +70,15 @@
     .frames-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
     .frames-title { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
     .frames-header-btns { display: flex; gap: 4px; }
-
     .header-btn {
-      background: transparent; border: 1px solid #333;
-      color: #888; padding: 3px 8px; border-radius: 4px;
-      font-size: 10px; cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-      white-space: nowrap;
+      background: transparent; border: 1px solid #333; color: #888;
+      padding: 3px 8px; border-radius: 4px; font-size: 10px; cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap;
     }
     .header-btn:hover { background: #2a2a2a; color: #ccc; border-color: #555; }
     .header-btn:disabled { opacity: 0.4; cursor: wait; }
     .header-btn.selection { border-color: #3a5a3a; color: #4CAF50; }
     .header-btn.selection:hover { background: rgba(76,175,80,0.15); color: #6fcf72; }
-    .header-btn.selection:disabled { opacity: 0.4; color: #4CAF50; }
 
     .frame-list { display: flex; flex-direction: column; gap: 3px; max-height: 400px; overflow-y: auto; padding-right: 2px; }
     .frame-list::-webkit-scrollbar { width: 6px; }
@@ -130,57 +86,48 @@
     .frame-list::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 
     .frame-item {
-      display: flex; align-items: center; gap: 6px;
-      padding: 7px 10px; background: #1e1e1e;
-      border: 1px solid #2a2a2a; border-radius: 6px;
+      display: flex; align-items: center; gap: 6px; padding: 7px 10px;
+      background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 6px;
       transition: background 0.15s, border-color 0.15s;
     }
     .frame-item:hover { background: #252525; border-color: #444; }
-
     .frame-item-indicator {
       width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-      background: #333; border: 1px solid #444;
-      transition: background 0.2s, border-color 0.2s;
+      background: #333; border: 1px solid #444; transition: background 0.2s, border-color 0.2s;
     }
     .frame-item-indicator.in-script { background: #4CAF50; border-color: #4CAF50; }
-
     .frame-item-title {
       flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-      background: transparent; border: none; color: #ccc;
-      padding: 0; cursor: pointer; font-family: inherit; font-size: 12px;
-      text-align: left; transition: color 0.15s;
+      background: transparent; border: none; color: #ccc; padding: 0;
+      cursor: pointer; font-family: inherit; font-size: 12px; text-align: left;
+      transition: color 0.15s;
     }
     .frame-item-title:hover { color: #fff; }
-
     .frame-item-actions { display: flex; gap: 3px; flex-shrink: 0; }
-
     .frame-action-btn {
-      background: transparent; border: 1px solid #333;
-      color: #666; width: 26px; height: 24px; border-radius: 4px;
-      font-size: 11px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid #333; color: #666;
+      width: 26px; height: 24px; border-radius: 4px; font-size: 11px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: background 0.15s, color 0.15s, border-color 0.15s;
     }
     .frame-action-btn.import:hover { background: #2a2a2a; color: #4CAF50; border-color: #4CAF50; }
     .frame-action-btn.remove { display: none; }
     .frame-item.is-in-script .frame-action-btn.remove { display: flex; }
     .frame-action-btn.remove:hover { background: rgba(229,115,115,0.15); color: #e57373; border-color: #e57373; }
-
     .frame-empty { text-align: center; color: #444; font-size: 11px; padding: 20px 10px; font-style: italic; }
-
     .hint {
-      font-size: 10px; color: #444; line-height: 1.5;
-      padding: 6px 8px; background: #111;
-      border-radius: 6px; border-left: 2px solid #333;
+      font-size: 10px; color: #444; line-height: 1.5; padding: 6px 8px;
+      background: #111; border-radius: 6px; border-left: 2px solid #333;
     }
   </style>
 </head>
 <body>
 
   <h1>🎬 LTelep Controller</h1>
-
-  <div id="connection-banner" class="connection-banner"></div>
   <div id="status" class="status">Bereit</div>
+
+  <!-- Versteckter Iframe für ltelep:// Aufrufe — kein Browser-Flash -->
+  <iframe id="ltelep-bridge" style="display:none" aria-hidden="true"></iframe>
 
   <div class="controls-section">
     <div class="btn-row">
@@ -234,19 +181,43 @@
     <strong>Klick auf Name:</strong> Miro zoomt + Teleprompter springt.<br>
     <strong>↓</strong> Doc importieren &nbsp;|&nbsp;
     <strong>✕</strong> aus Skript entfernen &nbsp;|&nbsp;
-    <strong>●</strong> im Skript vorhanden
+    <strong>●</strong> im Skript
   </div>
 
 <script>
   // ==========================================================================
-  // Config
+  // State
   // ==========================================================================
-  const SERVER_URL = 'http://127.0.0.1:52731';
-  let serverConnected = false;
-  let currentBoardId  = null;
+  let currentBoardId   = null;
   let currentBoardName = null;
-  let frames          = [];
-  let inScriptIds     = new Set();
+  let frames           = [];
+  let inScriptIds      = new Set();
+
+  // ==========================================================================
+  // send() — Versteckter Iframe statt window.open()
+  //
+  // window.open('ltelep://...') verursacht einen Browser-Flash weil Chrome
+  // kurz ein neues Tab/Popup öffnet. Ein unsichtbarer Iframe triggert die
+  // URL-Schema-Verarbeitung STILL im Hintergrund.
+  //
+  // Das ist das gleiche Pattern wie 1Password, Spotify u.a. Desktop-Apps.
+  // ==========================================================================
+  function send(command, silent) {
+    const url = 'ltelep://' + command;
+    if (!silent) setStatus('Sende: ' + command.split('?')[0].split('/')[0], 'info');
+    try {
+      document.getElementById('ltelep-bridge').src = url;
+      if (!silent) setTimeout(() => setStatus('Bereit', ''), 1500);
+    } catch (e) {
+      if (!silent) setStatus('Fehler: ' + e.message, 'error');
+    }
+  }
+
+  function setStatus(msg, type) {
+    const el = document.getElementById('status');
+    el.textContent = msg;
+    el.className = 'status' + (type ? ' ' + type : '');
+  }
 
   // ==========================================================================
   // Miro SDK Init
@@ -266,60 +237,12 @@
       currentBoardId   = info.id;
       currentBoardName = info.name || 'Miro Board';
 
-      // Board-Kontext an Teleprompter melden (Skript-Wechsel)
       const encodedName = encodeURIComponent(currentBoardName);
       send(`switch/${currentBoardId}/${encodedName}`, true);
 
-      // HTTP-Server Verbindung prüfen
-      await checkServerConnection();
-
-      // Frames laden
       loadFrames();
     } catch (e) {
-      console.warn('[LTelep] Board-Kontext nicht verfügbar:', e);
-    }
-  }
-
-  // ==========================================================================
-  // Server-Verbindung prüfen
-  // ==========================================================================
-  async function checkServerConnection() {
-    const banner = document.getElementById('connection-banner');
-    try {
-      const resp = await fetch(SERVER_URL + '/health', { signal: AbortSignal.timeout(2000) });
-      if (resp.ok) {
-        serverConnected = true;
-        banner.className = 'connection-banner connected';
-        banner.textContent = '✓ Verbunden mit LTelep — Import ohne API-Key möglich';
-        console.log('[LTelep] HTTP-Server verbunden');
-
-        // Frame-Status vom Teleprompter laden (welche Frames im Skript?)
-        await loadFrameStatus();
-      } else {
-        throw new Error('Server antwortet nicht OK');
-      }
-    } catch (e) {
-      serverConnected = false;
-      banner.className = 'connection-banner disconnected';
-      banner.textContent = '⚠ LTelep nicht erreichbar — ist die App gestartet?';
-      console.warn('[LTelep] HTTP-Server nicht erreichbar:', e.message);
-    }
-  }
-
-  // ==========================================================================
-  // Frame-Status vom Teleprompter laden
-  // ==========================================================================
-  async function loadFrameStatus() {
-    if (!serverConnected) return;
-    try {
-      const resp = await fetch(SERVER_URL + '/frame-status', { signal: AbortSignal.timeout(3000) });
-      if (resp.ok) {
-        const data = await resp.json();
-        inScriptIds = new Set(data.anchors || []);
-        console.log('[LTelep] Frame-Status geladen:', inScriptIds.size, 'Frames im Skript');
-      }
-    } catch (e) {
-      console.warn('[LTelep] Frame-Status laden fehlgeschlagen:', e.message);
+      console.warn('[LTelep] Board-Kontext:', e);
     }
   }
 
@@ -356,8 +279,8 @@
       });
 
       frames = sorted.map(item => ({
-        id:       item.id,
-        title:    item.title || 'Ohne Titel',
+        id:    item.id,
+        title: item.title || 'Ohne Titel',
         miroItem: item,
       }));
 
@@ -376,64 +299,56 @@
     listEl.innerHTML = '';
 
     for (const frame of frames) {
-      const isInScript = inScriptIds.has(frame.id);
+      const isIn = inScriptIds.has(frame.id);
 
       const item = document.createElement('div');
-      item.className = 'frame-item' + (isInScript ? ' is-in-script' : '');
+      item.className = 'frame-item' + (isIn ? ' is-in-script' : '');
       item.dataset.frameId = frame.id;
 
-      const indicator = document.createElement('div');
-      indicator.className = 'frame-item-indicator' + (isInScript ? ' in-script' : '');
-      indicator.title = isInScript ? 'Im Skript vorhanden' : 'Nicht im Skript';
+      const dot = document.createElement('div');
+      dot.className = 'frame-item-indicator' + (isIn ? ' in-script' : '');
+      dot.title = isIn ? 'Im Skript' : 'Nicht im Skript';
 
-      const titleBtn = document.createElement('button');
-      titleBtn.className = 'frame-item-title';
-      titleBtn.textContent = frame.title;
-      titleBtn.title = `Zu "${frame.title}" springen`;
-      titleBtn.onclick = () => navigateToFrame(frame);
+      const btn = document.createElement('button');
+      btn.className = 'frame-item-title';
+      btn.textContent = frame.title;
+      btn.title = `Zu "${frame.title}" springen`;
+      btn.onclick = () => navigateToFrame(frame);
 
-      const actions = document.createElement('div');
-      actions.className = 'frame-item-actions';
+      const acts = document.createElement('div');
+      acts.className = 'frame-item-actions';
 
-      const importBtn = document.createElement('button');
-      importBtn.className = 'frame-action-btn import';
-      importBtn.innerHTML = '↓';
-      importBtn.title = 'Frame in Teleprompter importieren';
-      importBtn.onclick = (e) => { e.stopPropagation(); importFrame(frame); };
+      const imp = document.createElement('button');
+      imp.className = 'frame-action-btn import';
+      imp.innerHTML = '↓';
+      imp.title = 'Frame importieren';
+      imp.onclick = (e) => { e.stopPropagation(); importFrame(frame); };
 
-      const removeBtn = document.createElement('button');
-      removeBtn.className = 'frame-action-btn remove';
-      removeBtn.innerHTML = '✕';
-      removeBtn.title = 'Frame aus Skript entfernen';
-      removeBtn.onclick = (e) => { e.stopPropagation(); removeFrame(frame); };
+      const rem = document.createElement('button');
+      rem.className = 'frame-action-btn remove';
+      rem.innerHTML = '✕';
+      rem.title = 'Aus Skript entfernen';
+      rem.onclick = (e) => { e.stopPropagation(); removeFrame(frame); };
 
-      actions.appendChild(importBtn);
-      actions.appendChild(removeBtn);
-      item.appendChild(indicator);
-      item.appendChild(titleBtn);
-      item.appendChild(actions);
+      acts.appendChild(imp);
+      acts.appendChild(rem);
+      item.appendChild(dot);
+      item.appendChild(btn);
+      item.appendChild(acts);
       listEl.appendChild(item);
     }
   }
 
   // ==========================================================================
-  // Doc-Inhalt eines Frames lesen — direkt aus dem Miro SDK
+  // Doc-Inhalt aus Miro SDK lesen — KEIN API-Key, KEIN HTTP
   //
-  // Das Plugin läuft IM Board und hat über das SDK Zugriff auf alle Inhalte.
-  // Kein API-Key, kein Token, keine externe Authentifizierung.
-  //
-  // Strategie: alle Items vom Board holen, nach Docs filtern die zum Frame
-  // gehören, Inhalt extrahieren. Falls content nicht direkt verfügbar,
-  // wird getById() als Fallback versucht.
+  // Das Plugin läuft IM Board und hat über das SDK direkten Zugriff.
   // ==========================================================================
   async function getFrameDocContent(frameId) {
     try {
       const allItems = await miro.board.get();
-
-      // Docs die zu diesem Frame gehören finden
       const frameDocs = allItems.filter(item => {
         if (item.type !== 'document') return false;
-        // Verschiedene Parent-Referenz-Formate prüfen
         if (item.parentId === frameId) return true;
         if (item.parent && item.parent.id === frameId) return true;
         return false;
@@ -445,27 +360,20 @@
       for (const doc of frameDocs) {
         let text = '';
 
-        // Versuch 1: content direkt auf dem Item
+        // Versuch 1: content direkt
         if (typeof doc.content === 'string' && doc.content.trim()) {
           text = doc.content.trim();
         }
 
-        // Versuch 2: getById für vollständige Daten
+        // Versuch 2: getById für Details
         if (!text) {
           try {
             const full = await miro.board.getById(doc.id);
-            if (full && typeof full.content === 'string' && full.content.trim()) {
-              text = full.content.trim();
-            }
-          } catch (e) {
-            // Stille ignorieren — manche SDK-Versionen unterstützen das nicht
-          }
+            if (full && typeof full.content === 'string') text = full.content.trim();
+          } catch (_) { /* SDK-Version unterstützt es evtl. nicht */ }
         }
 
-        if (text) {
-          // HTML zu einfachem Markdown konvertieren
-          parts.push(htmlToSimpleMarkdown(text));
-        }
+        if (text) parts.push(htmlToMarkdown(text));
       }
 
       return parts.join('\n\n');
@@ -476,17 +384,11 @@
   }
 
   // ==========================================================================
-  // HTML → einfaches Markdown
-  //
-  // Miro Docs liefern HTML. Der Teleprompter arbeitet mit Markdown.
-  // Diese Funktion konvertiert die häufigsten Tags.
+  // HTML → Markdown Konvertierung (für Miro Doc Inhalte)
   // ==========================================================================
-  function htmlToSimpleMarkdown(html) {
-    if (!html || !html.includes('<')) return html; // Kein HTML → direkt zurück
-
+  function htmlToMarkdown(html) {
+    if (!html || !html.includes('<')) return html;
     let md = html;
-
-    // Block-Elemente
     md = md.replace(/<h1[^>]*>(.*?)<\/h1>/gi, '# $1\n');
     md = md.replace(/<h2[^>]*>(.*?)<\/h2>/gi, '## $1\n');
     md = md.replace(/<h3[^>]*>(.*?)<\/h3>/gi, '### $1\n');
@@ -494,116 +396,51 @@
     md = md.replace(/<\/p>\s*<p[^>]*>/gi, '\n\n');
     md = md.replace(/<p[^>]*>/gi, '');
     md = md.replace(/<\/p>/gi, '\n');
-
-    // Listen
     md = md.replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n');
     md = md.replace(/<\/?[uo]l[^>]*>/gi, '\n');
-
-    // Inline-Formatting
     md = md.replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**');
     md = md.replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**');
     md = md.replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*');
     md = md.replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*');
-
-    // Restliche Tags entfernen
     md = md.replace(/<[^>]+>/g, '');
-
-    // HTML-Entities
-    md = md.replace(/&amp;/g, '&');
-    md = md.replace(/&lt;/g, '<');
-    md = md.replace(/&gt;/g, '>');
-    md = md.replace(/&quot;/g, '"');
-    md = md.replace(/&#39;/g, "'");
-    md = md.replace(/&nbsp;/g, ' ');
-
-    // Übermäßige Leerzeilen bereinigen
+    md = md.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+    md = md.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ');
     md = md.replace(/\n{3,}/g, '\n\n');
-
     return md.trim();
   }
 
   // ==========================================================================
-  // Frame-Navigation: Half-Zoom + Goto
-  // ==========================================================================
-  async function navigateToFrame(frame) {
-    setStatus(`→ ${frame.title}`, 'info');
-
-    try {
-      const items = await miro.board.get({ type: 'frame', id: frame.id });
-      if (items.length > 0) {
-        const f = items[0];
-        const padding = 1.0;
-        const vpWidth  = f.width  * (1 + padding * 2);
-        const vpHeight = f.height * (1 + padding * 2);
-
-        try {
-          await miro.board.viewport.set({
-            viewport: {
-              x:      f.x - vpWidth / 2,
-              y:      f.y - vpHeight / 2,
-              width:  vpWidth,
-              height: vpHeight,
-            }
-          });
-        } catch (vpErr) {
-          await miro.board.viewport.zoomTo(f);
-        }
-      }
-    } catch (e) {
-      console.warn('[LTelep] Zoom:', e);
-    }
-
-    send(`goto/${frame.id}`);
-    setTimeout(() => setStatus('Bereit', ''), 1500);
-  }
-
-  // ==========================================================================
-  // Frame importieren — HTTP wenn verfügbar, ltelep:// als Fallback
+  // Frame importieren — liest Inhalt aus Miro SDK, sendet via ltelep://
+  //
+  // Format: ltelep://import-content?id=<id>&title=<enc>&content=<enc>
+  // Der Teleprompter empfängt die Daten direkt — kein API-Key nötig.
   // ==========================================================================
   async function importFrame(frame) {
     setStatus(`Importiere "${frame.title}"…`, 'info');
 
-    if (serverConnected) {
-      try {
-        const content = await getFrameDocContent(frame.id);
-        const resp = await fetch(SERVER_URL + '/import', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            frameId: frame.id,
-            title:   frame.title,
-            content: content,
-          }),
-        });
+    try {
+      const content = await getFrameDocContent(frame.id);
+      const params = new URLSearchParams({
+        id:      frame.id,
+        title:   frame.title,
+        content: content,
+      });
 
-        const result = await resp.json();
-        if (result.ok) {
-          setStatus(`✓ "${frame.title}" importiert`, 'ok');
-          inScriptIds.add(frame.id);
-          updateFrameItemStatus(frame.id, true);
-        } else {
-          setStatus(`✗ ${result.message}`, 'error');
-        }
-      } catch (e) {
-        console.error('[LTelep] HTTP-Import fehlgeschlagen:', e);
-        setStatus(`✗ Verbindung verloren — versuche Fallback`, 'error');
-        // Fallback auf ltelep:// (braucht API-Key im Teleprompter)
-        send(`import-frame/${frame.id}`);
-        inScriptIds.add(frame.id);
-        updateFrameItemStatus(frame.id, true);
-      }
-    } else {
-      // Kein Server → ltelep:// Fallback (braucht API-Key)
-      send(`import-frame/${frame.id}`);
+      send(`import-content?${params.toString()}`, true);
+
       inScriptIds.add(frame.id);
       updateFrameItemStatus(frame.id, true);
+      setStatus(`✓ "${frame.title}" gesendet`, 'ok');
+    } catch (e) {
+      console.error('[LTelep] Import:', e);
+      setStatus(`✗ ${e.message}`, 'error');
     }
 
     setTimeout(() => setStatus('Bereit', ''), 3000);
   }
 
   // ==========================================================================
-  // Frame entfernen (immer via ltelep:// — kein Inhalt nötig)
+  // Frame entfernen (nur ID nötig)
   // ==========================================================================
   function removeFrame(frame) {
     setStatus(`Entferne "${frame.title}"…`, 'info');
@@ -614,7 +451,7 @@
   }
 
   // ==========================================================================
-  // Selektion importieren — alle ausgewählten Frames auf einmal
+  // Selektion importieren
   // ==========================================================================
   async function importSelection() {
     const selBtn = document.getElementById('selection-btn');
@@ -632,54 +469,32 @@
       const selectedFrames = selection.filter(item => item.type === 'frame');
 
       if (selectedFrames.length === 0) {
-        setStatus('Keine Frames ausgewählt — zuerst Frames im Board anklicken', 'error');
+        setStatus('Keine Frames ausgewählt', 'error');
         return;
       }
 
       setStatus(`Importiere ${selectedFrames.length} Frames…`, 'info');
 
-      if (serverConnected) {
-        // HTTP-Batch: alle Frames mit Inhalt auf einmal senden
-        const batchFrames = [];
-        for (const f of selectedFrames) {
-          const content = await getFrameDocContent(f.id);
-          batchFrames.push({
-            frameId: f.id,
-            title:   f.title || 'Ohne Titel',
-            content: content,
-          });
-          inScriptIds.add(f.id);
-          updateFrameItemStatus(f.id, true);
-        }
+      for (let i = 0; i < selectedFrames.length; i++) {
+        const f = selectedFrames[i];
+        const content = await getFrameDocContent(f.id);
+        const params = new URLSearchParams({
+          id:      f.id,
+          title:   f.title || 'Ohne Titel',
+          content: content,
+        });
 
-        try {
-          const resp = await fetch(SERVER_URL + '/import-batch', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ frames: batchFrames }),
-          });
-          const result = await resp.json();
-          if (result.ok) {
-            setStatus(`✓ ${result.message}`, 'ok');
-          } else {
-            setStatus(`✗ ${result.message}`, 'error');
-          }
-        } catch (e) {
-          setStatus('✗ Verbindung verloren', 'error');
+        send(`import-content?${params.toString()}`, true);
+        inScriptIds.add(f.id);
+        updateFrameItemStatus(f.id, true);
+
+        // 300ms Pause zwischen Frames — gibt dem Teleprompter Zeit
+        if (i < selectedFrames.length - 1) {
+          await new Promise(r => setTimeout(r, 300));
         }
-      } else {
-        // Fallback: einzelne ltelep:// Calls mit Delay
-        for (let i = 0; i < selectedFrames.length; i++) {
-          send(`import-frame/${selectedFrames[i].id}`, true);
-          inScriptIds.add(selectedFrames[i].id);
-          updateFrameItemStatus(selectedFrames[i].id, true);
-          if (i < selectedFrames.length - 1) {
-            await new Promise(r => setTimeout(r, 250));
-          }
-        }
-        setStatus(`✓ ${selectedFrames.length} Frames gesendet`, 'ok');
       }
 
+      setStatus(`✓ ${selectedFrames.length} Frames importiert`, 'ok');
       setTimeout(() => setStatus('Bereit', ''), 3000);
     } catch (e) {
       console.error('[LTelep] Selektion:', e);
@@ -691,21 +506,51 @@
   }
 
   // ==========================================================================
-  // Frame-Status UI aktualisieren
+  // Frame-Navigation: Half-Zoom + Goto
   // ==========================================================================
-  function updateFrameItemStatus(frameId, isInScript) {
+  async function navigateToFrame(frame) {
+    setStatus(`→ ${frame.title}`, 'info');
+    try {
+      const items = await miro.board.get({ type: 'frame', id: frame.id });
+      if (items.length > 0) {
+        const f = items[0];
+        const pad = 1.0;
+        try {
+          await miro.board.viewport.set({
+            viewport: {
+              x: f.x - f.width * (1 + pad * 2) / 2,
+              y: f.y - f.height * (1 + pad * 2) / 2,
+              width:  f.width  * (1 + pad * 2),
+              height: f.height * (1 + pad * 2),
+            }
+          });
+        } catch (_) {
+          await miro.board.viewport.zoomTo(f);
+        }
+      }
+    } catch (e) {
+      console.warn('[LTelep] Zoom:', e);
+    }
+    send(`goto/${frame.id}`);
+    setTimeout(() => setStatus('Bereit', ''), 1500);
+  }
+
+  // ==========================================================================
+  // UI-Helfer
+  // ==========================================================================
+  function updateFrameItemStatus(frameId, isIn) {
     const item = document.querySelector(`.frame-item[data-frame-id="${frameId}"]`);
     if (!item) return;
-    item.classList.toggle('is-in-script', isInScript);
-    const indicator = item.querySelector('.frame-item-indicator');
-    if (indicator) {
-      indicator.classList.toggle('in-script', isInScript);
-      indicator.title = isInScript ? 'Im Skript vorhanden' : 'Nicht im Skript';
+    item.classList.toggle('is-in-script', isIn);
+    const dot = item.querySelector('.frame-item-indicator');
+    if (dot) {
+      dot.classList.toggle('in-script', isIn);
+      dot.title = isIn ? 'Im Skript' : 'Nicht im Skript';
     }
   }
 
   // ==========================================================================
-  // Speed-Slider
+  // Speed
   // ==========================================================================
   function sliderToSpeed(v) {
     const t = (v - 1) / 99;
@@ -723,12 +568,10 @@
     currentSpeed = sliderToSpeed(parseInt(val));
     document.getElementById('speed-display').textContent = currentSpeed.toFixed(1) + 'x';
   }
-
   function sendSpeed() {
     clearTimeout(sendTimer);
     sendTimer = setTimeout(() => send('speed/' + currentSpeed.toFixed(1)), 200);
   }
-
   function setSpeedPreset(speed) {
     currentSpeed = speed;
     document.getElementById('speed-slider').value = speedToSlider(speed);
@@ -736,30 +579,10 @@
     send('speed/' + speed.toFixed(1));
   }
 
-  // ==========================================================================
-  // send(command) — ltelep:// URL Schema (für Steuerung)
-  // ==========================================================================
-  function send(command, silent) {
-    const url = 'ltelep://' + command;
-    if (!silent) setStatus('Sende: ' + command.split('/')[0], 'info');
-    try {
-      window.open(url, '_blank');
-      if (!silent) setTimeout(() => setStatus('Bereit', ''), 1500);
-    } catch (e) {
-      if (!silent) setStatus('Fehler: ' + e.message, 'error');
-    }
-  }
-
-  function setStatus(msg, type) {
-    const el = document.getElementById('status');
-    el.textContent = msg;
-    el.className = 'status' + (type ? ' ' + type : '');
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.getElementById('speed-slider');
-    slider.value = speedToSlider(1.5);
-    onSpeedSlider(slider.value);
+    const sl = document.getElementById('speed-slider');
+    sl.value = speedToSlider(1.5);
+    onSpeedSlider(sl.value);
   });
 </script>
 </body>
