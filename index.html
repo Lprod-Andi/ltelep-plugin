@@ -508,25 +508,33 @@
     try {
       const items = await miro.board.get({ type: 'frame', id: frame.id });
       if (items.length > 0) {
-        // Erst normal zoomTo
-        await miro.board.viewport.zoomTo(items[0]);
+        const f = items[0];
 
-        // Dann Viewport verdoppeln = halber Zoom.
-        // Der Frame nimmt ca. die Hälfte des Bildschirms ein,
-        // drumherum sieht man Board-Kontext.
+        // Direkter Viewport-Sprung — KEIN zoomTo() vorher!
+        // zoomTo animiert auf Vollbild und viewport.set springt danach zurück,
+        // was ein hässliches Zucken verursacht.
+        //
+        // Stattdessen: viewport.set() direkt mit Frame-Koordinaten + Padding.
+        // Frame x/y = Mittelpunkt, width/height = Dimensionen.
+        // Wir setzen den Viewport 2x so groß wie den Frame → Frame nimmt
+        // ca. 50% des Bildschirms ein, drumherum Board-Kontext.
+        const padding = 1.0; // 1.0 = 100% Padding = Frame bei ~50%
+        const vpWidth  = f.width  * (1 + padding * 2);
+        const vpHeight = f.height * (1 + padding * 2);
+
         try {
-          const vp = await miro.board.viewport.get();
           await miro.board.viewport.set({
             viewport: {
-              x:      vp.x - vp.width  / 2,
-              y:      vp.y - vp.height / 2,
-              width:  vp.width  * 2,
-              height: vp.height * 2,
+              x:      f.x - vpWidth  / 2,
+              y:      f.y - vpHeight / 2,
+              width:  vpWidth,
+              height: vpHeight,
             }
           });
         } catch (vpErr) {
-          // Falls viewport.set nicht verfügbar: der zoomTo hat trotzdem geklappt
-          console.warn('[LTelep] Half-zoom nicht möglich:', vpErr);
+          // Fallback: normaler zoomTo wenn viewport.set nicht geht
+          console.warn('[LTelep] viewport.set fehlgeschlagen, Fallback auf zoomTo:', vpErr);
+          await miro.board.viewport.zoomTo(f);
         }
       }
     } catch (e) {
