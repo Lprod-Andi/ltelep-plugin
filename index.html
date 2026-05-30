@@ -13,130 +13,72 @@
       padding: 12px; min-height: 100vh;
       display: flex; flex-direction: column; gap: 12px;
     }
-    h1 {
-      font-size: 13px; font-weight: 700; color: #888;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      padding-bottom: 6px; border-bottom: 1px solid #333;
-    }
-    .status {
-      font-size: 11px; color: #666; text-align: center; padding: 5px;
-      border-radius: 6px; background: #111; border: 1px solid #2a2a2a;
-      min-height: 28px; display: flex; align-items: center; justify-content: center;
-      transition: color 0.2s;
-    }
+    h1 { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.08em; padding-bottom: 6px; border-bottom: 1px solid #333; }
+    .status { font-size: 11px; color: #666; text-align: center; padding: 5px; border-radius: 6px; background: #111; border: 1px solid #2a2a2a; min-height: 28px; display: flex; align-items: center; justify-content: center; transition: color 0.2s; }
     .status.ok    { color: #4CAF50; }
     .status.error { color: #e57373; }
     .status.info  { color: #64b5f6; }
-
     .controls-section { display: flex; flex-direction: column; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid #2a2a2a; }
     .btn-row { display: flex; gap: 6px; }
-    .btn {
-      flex: 1; padding: 10px 4px; border: 1px solid #444; border-radius: 8px;
-      background: #252525; color: #e0e0e0; font-size: 12px; font-weight: 600;
-      cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px;
-      transition: background 0.15s, border-color 0.15s, transform 0.1s; user-select: none;
-    }
-    .btn:hover  { background: #333; border-color: #666; }
+    .btn { flex: 1; padding: 10px 4px; border: 1px solid #444; border-radius: 8px; background: #252525; color: #e0e0e0; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: background 0.15s, border-color 0.15s, transform 0.1s; user-select: none; }
+    .btn:hover { background: #333; border-color: #666; }
     .btn:active { transform: scale(0.97); }
-    .btn.play   { border-color: #4CAF50; }
-    .btn.play:hover  { background: rgba(76,175,80,0.2); }
-    .btn.stop   { border-color: #e57373; }
-    .btn.stop:hover  { background: rgba(229,115,115,0.2); }
-    .btn-icon  { font-size: 18px; line-height: 1; }
+    .btn.play { border-color: #4CAF50; }
+    .btn.play:hover { background: rgba(76,175,80,0.2); }
+    .btn.stop { border-color: #e57373; }
+    .btn.stop:hover { background: rgba(229,115,115,0.2); }
+    .btn-icon { font-size: 18px; line-height: 1; }
     .btn-label { font-size: 10px; color: #888; }
-
     .nav-row { display: flex; gap: 6px; }
-    .nav-btn {
-      flex: 1; padding: 8px; border: 1px solid #333; border-radius: 8px;
-      background: #1e1e1e; color: #ccc; font-size: 12px; cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-    }
+    .nav-btn { flex: 1; padding: 8px; border: 1px solid #333; border-radius: 8px; background: #1e1e1e; color: #ccc; font-size: 12px; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
     .nav-btn:hover { background: #2a2a2a; border-color: #555; }
-
     .speed-section { display: flex; flex-direction: column; gap: 6px; }
-    .speed-header  { display: flex; justify-content: space-between; align-items: center; }
+    .speed-header { display: flex; justify-content: space-between; align-items: center; }
     .speed-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
     .speed-value { font-size: 13px; font-weight: 700; color: #4CAF50; font-variant-numeric: tabular-nums; min-width: 32px; text-align: right; }
     input[type="range"] { width: 100%; height: 4px; accent-color: #4CAF50; cursor: pointer; }
     .preset-row { display: flex; gap: 4px; }
-    .preset-btn {
-      flex: 1; padding: 4px 2px; border: 1px solid #333; border-radius: 5px;
-      background: #1a1a1a; color: #888; font-size: 10px; cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-    }
+    .preset-btn { flex: 1; padding: 4px 2px; border: 1px solid #333; border-radius: 5px; background: #1a1a1a; color: #888; font-size: 10px; cursor: pointer; transition: background 0.15s, color 0.15s; }
     .preset-btn:hover { background: #2a2a2a; color: #ccc; }
-
     .frames-section { display: flex; flex-direction: column; gap: 8px; flex: 1; min-height: 0; }
     .frames-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
     .frames-title { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
     .frames-header-btns { display: flex; gap: 4px; }
-    .header-btn {
-      background: transparent; border: 1px solid #333; color: #888;
-      padding: 3px 8px; border-radius: 4px; font-size: 10px; cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap;
-    }
+    .header-btn { background: transparent; border: 1px solid #333; color: #888; padding: 3px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap; }
     .header-btn:hover { background: #2a2a2a; color: #ccc; border-color: #555; }
     .header-btn:disabled { opacity: 0.4; cursor: wait; }
     .header-btn.selection { border-color: #3a5a3a; color: #4CAF50; }
     .header-btn.selection:hover { background: rgba(76,175,80,0.15); color: #6fcf72; }
-
     .frame-list { display: flex; flex-direction: column; gap: 3px; max-height: 400px; overflow-y: auto; padding-right: 2px; }
     .frame-list::-webkit-scrollbar { width: 6px; }
     .frame-list::-webkit-scrollbar-track { background: #111; }
     .frame-list::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-
-    .frame-item {
-      display: flex; align-items: center; gap: 6px; padding: 7px 10px;
-      background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 6px;
-      transition: background 0.15s, border-color 0.15s;
-    }
+    .frame-item { display: flex; align-items: center; gap: 6px; padding: 7px 10px; background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 6px; transition: background 0.15s, border-color 0.15s; }
     .frame-item:hover { background: #252525; border-color: #444; }
-    .frame-item-indicator {
-      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-      background: #333; border: 1px solid #444; transition: background 0.2s, border-color 0.2s;
-    }
+    .frame-item-indicator { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: #333; border: 1px solid #444; transition: background 0.2s, border-color 0.2s; }
     .frame-item-indicator.in-script { background: #4CAF50; border-color: #4CAF50; }
-    .frame-item-title {
-      flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-      background: transparent; border: none; color: #ccc; padding: 0;
-      cursor: pointer; font-family: inherit; font-size: 12px; text-align: left;
-      transition: color 0.15s;
-    }
+    .frame-item-indicator.has-marker { background: #64b5f6; border-color: #64b5f6; }
+    .frame-item-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: transparent; border: none; color: #ccc; padding: 0; cursor: pointer; font-family: inherit; font-size: 12px; text-align: left; transition: color 0.15s; }
     .frame-item-title:hover { color: #fff; }
     .frame-item-actions { display: flex; gap: 3px; flex-shrink: 0; }
-    .frame-action-btn {
-      background: transparent; border: 1px solid #333; color: #666;
-      width: 26px; height: 24px; border-radius: 4px; font-size: 11px;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-    }
+    .frame-action-btn { background: transparent; border: 1px solid #333; color: #666; width: 26px; height: 24px; border-radius: 4px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, color 0.15s, border-color 0.15s; }
     .frame-action-btn.import:hover { background: #2a2a2a; color: #4CAF50; border-color: #4CAF50; }
     .frame-action-btn.remove { display: none; }
     .frame-item.is-in-script .frame-action-btn.remove { display: flex; }
     .frame-action-btn.remove:hover { background: rgba(229,115,115,0.15); color: #e57373; border-color: #e57373; }
     .frame-empty { text-align: center; color: #444; font-size: 11px; padding: 20px 10px; font-style: italic; }
-    .hint {
-      font-size: 10px; color: #444; line-height: 1.5; padding: 6px 8px;
-      background: #111; border-radius: 6px; border-left: 2px solid #333;
-    }
+    .hint { font-size: 10px; color: #444; line-height: 1.5; padding: 6px 8px; background: #111; border-radius: 6px; border-left: 2px solid #333; }
   </style>
 </head>
 <body>
-
   <h1>🎬 LTelep Controller</h1>
   <div id="status" class="status">Bereit</div>
-
-  <!-- Versteckter Iframe für ltelep:// Aufrufe — kein Browser-Flash -->
   <iframe id="ltelep-bridge" style="display:none" aria-hidden="true"></iframe>
 
   <div class="controls-section">
     <div class="btn-row">
-      <button class="btn play" onclick="send('play')">
-        <span class="btn-icon">▶</span><span class="btn-label">Play</span>
-      </button>
-      <button class="btn stop" onclick="send('stop')">
-        <span class="btn-icon">⏹</span><span class="btn-label">Stop</span>
-      </button>
+      <button class="btn play" onclick="send('play')"><span class="btn-icon">▶</span><span class="btn-label">Play</span></button>
+      <button class="btn stop" onclick="send('stop')"><span class="btn-icon">⏹</span><span class="btn-label">Stop</span></button>
     </div>
     <div class="nav-row">
       <button class="nav-btn" onclick="send('prev')">◀ Zurück</button>
@@ -147,8 +89,7 @@
         <span class="speed-label">Tempo</span>
         <span class="speed-value" id="speed-display">1.5x</span>
       </div>
-      <input type="range" id="speed-slider" min="1" max="100" value="14"
-        oninput="onSpeedSlider(this.value)" onchange="sendSpeed()" />
+      <input type="range" id="speed-slider" min="1" max="100" value="14" oninput="onSpeedSlider(this.value)" onchange="sendSpeed()" />
       <div class="preset-row">
         <button class="preset-btn" onclick="setSpeedPreset(0.5)">0.5×</button>
         <button class="preset-btn" onclick="setSpeedPreset(1.0)">1.0×</button>
@@ -163,13 +104,8 @@
     <div class="frames-header">
       <span class="frames-title">Frames im Board</span>
       <div class="frames-header-btns">
-        <button id="selection-btn" class="header-btn selection"
-          onclick="importSelection()" title="Ausgewählte Frames importieren">
-          ✦ Selektion
-        </button>
-        <button id="refresh-btn" class="header-btn" onclick="loadFrames()">
-          ↻ Aktualisieren
-        </button>
+        <button id="selection-btn" class="header-btn selection" onclick="importSelection()" title="Ausgewählte Frames importieren">✦ Selektion</button>
+        <button id="refresh-btn" class="header-btn" onclick="loadFrames()">↻ Aktualisieren</button>
       </div>
     </div>
     <div id="frame-list" class="frame-list">
@@ -178,10 +114,8 @@
   </div>
 
   <div class="hint">
-    <strong>Klick auf Name:</strong> Miro zoomt + Teleprompter springt.<br>
-    <strong>↓</strong> Doc importieren &nbsp;|&nbsp;
-    <strong>✕</strong> aus Skript entfernen &nbsp;|&nbsp;
-    <strong>●</strong> im Skript
+    <strong>So geht's:</strong> Text im Frame anklicken → ↓ drücken → Text wird importiert + 🎬 Marker gesetzt.<br>
+    Ohne Auswahl: längster Text wird genommen.
   </div>
 
 <script>
@@ -192,15 +126,11 @@
   let currentBoardName = null;
   let frames           = [];
   let inScriptIds      = new Set();
+  let scriptMap        = {};     // frameId → textItemId (gespeichert in appData)
+  let markerMap        = {};     // frameId → markerShapeId (für Cleanup)
 
   // ==========================================================================
-  // send() — Versteckter Iframe statt window.open()
-  //
-  // window.open('ltelep://...') verursacht einen Browser-Flash weil Chrome
-  // kurz ein neues Tab/Popup öffnet. Ein unsichtbarer Iframe triggert die
-  // URL-Schema-Verarbeitung STILL im Hintergrund.
-  //
-  // Das ist das gleiche Pattern wie 1Password, Spotify u.a. Desktop-Apps.
+  // send() — Versteckter Iframe, kein Browser-Flash
   // ==========================================================================
   function send(command, silent) {
     const url = 'ltelep://' + command;
@@ -224,9 +154,7 @@
   // ==========================================================================
   if (typeof miro !== 'undefined') {
     miro.board.ui.on('icon:click', async () => {
-      await miro.board.ui.openPanel({
-        url: 'https://lprod-andi.github.io/ltelep-plugin/'
-      });
+      await miro.board.ui.openPanel({ url: 'https://lprod-andi.github.io/ltelep-plugin/' });
     });
     initBoardContext();
   }
@@ -236,10 +164,10 @@
       const info = await miro.board.getInfo();
       currentBoardId   = info.id;
       currentBoardName = info.name || 'Miro Board';
+      send(`switch/${currentBoardId}/${encodeURIComponent(currentBoardName)}`, true);
 
-      const encodedName = encodeURIComponent(currentBoardName);
-      send(`switch/${currentBoardId}/${encodedName}`, true);
-
+      // Gespeicherte Zuordnungen laden (Frame → Text-Item)
+      await loadScriptMap();
       loadFrames();
     } catch (e) {
       console.warn('[LTelep] Board-Kontext:', e);
@@ -247,10 +175,146 @@
   }
 
   // ==========================================================================
+  // AppData — Persistente Zuordnung Frame → Skript-Text
+  //
+  // miro.board.setAppData() speichert Daten PRO BOARD und PRO APP.
+  // Überlebt Neustarts, Plugin-Reload, Browser-Wechsel.
+  // ==========================================================================
+  async function loadScriptMap() {
+    try {
+      const raw = await miro.board.getAppData('scriptMap');
+      scriptMap = raw ? JSON.parse(raw) : {};
+
+      const rawMarkers = await miro.board.getAppData('markerMap');
+      markerMap = rawMarkers ? JSON.parse(rawMarkers) : {};
+
+      console.log('[LTelep] scriptMap geladen:', Object.keys(scriptMap).length, 'Zuordnungen');
+    } catch (e) {
+      scriptMap = {};
+      markerMap = {};
+      console.warn('[LTelep] AppData laden:', e);
+    }
+  }
+
+  async function saveScriptMap() {
+    try {
+      await miro.board.setAppData('scriptMap', JSON.stringify(scriptMap));
+      await miro.board.setAppData('markerMap', JSON.stringify(markerMap));
+    } catch (e) {
+      console.warn('[LTelep] AppData speichern:', e);
+    }
+  }
+
+  // ==========================================================================
+  // 🎬 Marker auf dem Board setzen / entfernen
+  // ==========================================================================
+  async function placeMarker(frameId, textItem) {
+    // Alten Marker entfernen falls vorhanden
+    await removeMarker(frameId);
+
+    try {
+      const marker = await miro.board.createShape({
+        shape: 'round_rectangle',
+        content: '<p>🎬</p>',
+        style: {
+          fillColor: '#2d8c3c',
+          fontFamily: 'arial',
+          fontSize: 14,
+          textAlign: 'center',
+          textAlignVertical: 'middle',
+        },
+        x: textItem.x - (textItem.width || 200) / 2 - 22,
+        y: textItem.y - (textItem.height || 40) / 2 + 12,
+        width: 32,
+        height: 28,
+      });
+
+      markerMap[frameId] = marker.id;
+      await saveScriptMap();
+      console.log('[LTelep] Marker gesetzt für Frame', frameId);
+    } catch (e) {
+      console.warn('[LTelep] Marker erstellen:', e);
+    }
+  }
+
+  async function removeMarker(frameId) {
+    const markerId = markerMap[frameId];
+    if (!markerId) return;
+
+    try {
+      const item = await miro.board.getById(markerId);
+      if (item) await miro.board.remove(item);
+    } catch (e) {
+      // Marker existiert nicht mehr — kein Problem
+    }
+
+    delete markerMap[frameId];
+  }
+
+  // ==========================================================================
+  // Skript-Text eines Frames bestimmen
+  //
+  // Priorität:
+  //   1. Ausgewähltes Text-Item (User hat es gerade angeklickt)
+  //   2. Gespeicherte Zuordnung aus AppData (vom letzten Import)
+  //   3. Fallback: längstes Text-Item im Frame
+  // ==========================================================================
+  async function resolveScriptText(frameId) {
+    const allItems = await miro.board.get();
+
+    // 1. Aktuelle Selektion prüfen
+    try {
+      const selection = await miro.board.getSelection();
+      const selectedText = selection.find(item =>
+        item.type === 'text' && item.parentId === frameId
+      );
+      if (selectedText) {
+        console.log('[LTelep] Ausgewähltes Text-Item gefunden:', selectedText.id);
+        // Zuordnung speichern für nächstes Mal
+        scriptMap[frameId] = selectedText.id;
+        await saveScriptMap();
+        return { item: selectedText, source: 'selection' };
+      }
+    } catch (e) {
+      console.warn('[LTelep] Selection lesen:', e);
+    }
+
+    // 2. Gespeicherte Zuordnung
+    const savedId = scriptMap[frameId];
+    if (savedId) {
+      try {
+        const saved = await miro.board.getById(savedId);
+        if (saved && saved.type === 'text' && saved.parentId === frameId) {
+          console.log('[LTelep] Gespeicherte Zuordnung:', savedId);
+          return { item: saved, source: 'saved' };
+        }
+      } catch (e) {
+        // Item wurde gelöscht — Zuordnung aufräumen
+        delete scriptMap[frameId];
+        await removeMarker(frameId);
+        await saveScriptMap();
+      }
+    }
+
+    // 3. Fallback: längstes Text-Item im Frame
+    const frameTexts = allItems
+      .filter(i => i.type === 'text' && i.parentId === frameId && i.content)
+      .sort((a, b) => (b.content || '').length - (a.content || '').length);
+
+    if (frameTexts.length > 0) {
+      console.log('[LTelep] Fallback auf längstes Text-Item:', frameTexts[0].id,
+        `(${frameTexts[0].content.length} Zeichen)`);
+      return { item: frameTexts[0], source: 'longest' };
+    }
+
+    return { item: null, source: 'none' };
+  }
+
+  // ==========================================================================
   // Frame-Liste laden
   // ==========================================================================
   async function loadFrames() {
-    const listEl    = document.getElementById('frame-list');
+    const listEl = document.getElementById('frame-list');
     const refreshEl = document.getElementById('refresh-btn');
 
     if (typeof miro === 'undefined') {
@@ -264,7 +328,6 @@
 
     try {
       const items = await miro.board.get({ type: 'frame' });
-
       if (items.length === 0) {
         frames = [];
         listEl.innerHTML = '<div class="frame-empty">Keine Frames im Board</div>';
@@ -279,11 +342,8 @@
       });
 
       frames = sorted.map(item => ({
-        id:    item.id,
-        title: item.title || 'Ohne Titel',
-        miroItem: item,
+        id: item.id, title: item.title || 'Ohne Titel', miroItem: item,
       }));
-
       renderFrameList();
     } catch (e) {
       console.error('[LTelep] Frames laden:', e);
@@ -297,21 +357,23 @@
   function renderFrameList() {
     const listEl = document.getElementById('frame-list');
     listEl.innerHTML = '';
-
     for (const frame of frames) {
       const isIn = inScriptIds.has(frame.id);
+      const hasMapping = !!scriptMap[frame.id];
 
       const item = document.createElement('div');
       item.className = 'frame-item' + (isIn ? ' is-in-script' : '');
       item.dataset.frameId = frame.id;
 
       const dot = document.createElement('div');
-      dot.className = 'frame-item-indicator' + (isIn ? ' in-script' : '');
-      dot.title = isIn ? 'Im Skript' : 'Nicht im Skript';
+      dot.className = 'frame-item-indicator'
+        + (isIn ? ' in-script' : '')
+        + (hasMapping && !isIn ? ' has-marker' : '');
+      dot.title = isIn ? 'Im Skript' : hasMapping ? '🎬 Skript-Text zugeordnet' : 'Nicht im Skript';
 
       const btn = document.createElement('button');
       btn.className = 'frame-item-title';
-      btn.textContent = frame.title;
+      btn.textContent = frame.title + (hasMapping ? ' 🎬' : '');
       btn.title = `Zu "${frame.title}" springen`;
       btn.onclick = () => navigateToFrame(frame);
 
@@ -321,7 +383,7 @@
       const imp = document.createElement('button');
       imp.className = 'frame-action-btn import';
       imp.innerHTML = '↓';
-      imp.title = 'Frame importieren';
+      imp.title = 'Text auswählen → ↓ drücken = importieren + markieren';
       imp.onclick = (e) => { e.stopPropagation(); importFrame(frame); };
 
       const rem = document.createElement('button');
@@ -340,51 +402,142 @@
   }
 
   // ==========================================================================
-  // Doc-Inhalt aus Miro SDK lesen — KEIN API-Key, KEIN HTTP
+  // Frame importieren
   //
-  // Das Plugin läuft IM Board und hat über das SDK direkten Zugriff.
+  // 1. resolveScriptText bestimmt WELCHER Text (Selektion > Gespeichert > Längster)
+  // 2. Content wird via ltelep://import-content gesendet
+  // 3. 🎬 Marker wird auf dem Board gesetzt
   // ==========================================================================
-  async function getFrameDocContent(frameId) {
+  async function importFrame(frame) {
+    setStatus(`Importiere "${frame.title}"…`, 'info');
+
     try {
-      const allItems = await miro.board.get();
-      const frameDocs = allItems.filter(item => {
-        if (item.type !== 'document') return false;
-        if (item.parentId === frameId) return true;
-        if (item.parent && item.parent.id === frameId) return true;
-        return false;
-      });
+      const { item: textItem, source } = await resolveScriptText(frame.id);
 
-      if (frameDocs.length === 0) return '';
+      let content = '';
+      if (textItem) {
+        content = htmlToMarkdown(textItem.content || '');
 
-      const parts = [];
-      for (const doc of frameDocs) {
-        let text = '';
-
-        // Versuch 1: content direkt
-        if (typeof doc.content === 'string' && doc.content.trim()) {
-          text = doc.content.trim();
+        // Marker setzen (nur bei Selektion oder wenn noch kein Marker)
+        if (source === 'selection' || !markerMap[frame.id]) {
+          await placeMarker(frame.id, textItem);
         }
-
-        // Versuch 2: getById für Details
-        if (!text) {
-          try {
-            const full = await miro.board.getById(doc.id);
-            if (full && typeof full.content === 'string') text = full.content.trim();
-          } catch (_) { /* SDK-Version unterstützt es evtl. nicht */ }
-        }
-
-        if (text) parts.push(htmlToMarkdown(text));
       }
 
-      return parts.join('\n\n');
+      const sourceLabel = { selection: 'ausgewählt', saved: 'gespeichert', longest: 'längster Text', none: 'kein Text' };
+      console.log(`[LTelep] Import: "${frame.title}" via ${sourceLabel[source]}, ${content.length} Zeichen`);
+
+      const params = new URLSearchParams({
+        id: frame.id,
+        title: frame.title,
+        content: content,
+      });
+      send(`import-content?${params.toString()}`, true);
+
+      inScriptIds.add(frame.id);
+      updateFrameItemStatus(frame.id, true);
+
+      if (content) {
+        setStatus(`✓ "${frame.title}" importiert (${sourceLabel[source]})`, 'ok');
+      } else {
+        setStatus(`⚠ "${frame.title}" importiert — kein Text gefunden`, 'info');
+      }
     } catch (e) {
-      console.warn('[LTelep] getFrameDocContent:', e);
-      return '';
+      console.error('[LTelep] Import:', e);
+      setStatus(`✗ ${e.message}`, 'error');
+    }
+
+    setTimeout(() => setStatus('Bereit', ''), 3000);
+  }
+
+  // ==========================================================================
+  // Frame entfernen
+  // ==========================================================================
+  function removeFrame(frame) {
+    send(`remove-frame/${frame.id}`);
+    inScriptIds.delete(frame.id);
+    updateFrameItemStatus(frame.id, false);
+    setStatus(`"${frame.title}" entfernt`, 'info');
+    setTimeout(() => setStatus('Bereit', ''), 2000);
+  }
+
+  // ==========================================================================
+  // Selektion importieren
+  // ==========================================================================
+  async function importSelection() {
+    const selBtn = document.getElementById('selection-btn');
+    if (typeof miro === 'undefined') { setStatus('Nur in Miro', 'error'); return; }
+
+    selBtn.disabled = true;
+    selBtn.textContent = '⏳ Lädt…';
+
+    try {
+      const selection = await miro.board.getSelection();
+      const selectedFrames = selection.filter(i => i.type === 'frame');
+
+      if (selectedFrames.length === 0) {
+        setStatus('Keine Frames ausgewählt', 'error');
+        return;
+      }
+
+      setStatus(`Importiere ${selectedFrames.length} Frames…`, 'info');
+
+      for (let i = 0; i < selectedFrames.length; i++) {
+        const f = selectedFrames[i];
+        const { item: textItem } = await resolveScriptText(f.id);
+        const content = textItem ? htmlToMarkdown(textItem.content || '') : '';
+
+        if (textItem && !markerMap[f.id]) {
+          await placeMarker(f.id, textItem);
+        }
+
+        const params = new URLSearchParams({
+          id: f.id, title: f.title || 'Ohne Titel', content: content,
+        });
+        send(`import-content?${params.toString()}`, true);
+        inScriptIds.add(f.id);
+        updateFrameItemStatus(f.id, true);
+
+        if (i < selectedFrames.length - 1) await new Promise(r => setTimeout(r, 300));
+      }
+
+      setStatus(`✓ ${selectedFrames.length} Frames importiert`, 'ok');
+      setTimeout(() => setStatus('Bereit', ''), 3000);
+    } catch (e) {
+      console.error('[LTelep] Selektion:', e);
+      setStatus('Fehler: ' + e.message, 'error');
+    } finally {
+      selBtn.disabled = false;
+      selBtn.textContent = '✦ Selektion';
     }
   }
 
   // ==========================================================================
-  // HTML → Markdown Konvertierung (für Miro Doc Inhalte)
+  // Navigation: Half-Zoom + Goto
+  // ==========================================================================
+  async function navigateToFrame(frame) {
+    setStatus(`→ ${frame.title}`, 'info');
+    try {
+      const items = await miro.board.get({ type: 'frame', id: frame.id });
+      if (items.length > 0) {
+        const f = items[0];
+        const pad = 1.0;
+        try {
+          await miro.board.viewport.set({ viewport: {
+            x: f.x - f.width * (1 + pad * 2) / 2,
+            y: f.y - f.height * (1 + pad * 2) / 2,
+            width: f.width * (1 + pad * 2),
+            height: f.height * (1 + pad * 2),
+          }});
+        } catch (_) { await miro.board.viewport.zoomTo(f); }
+      }
+    } catch (e) { console.warn('[LTelep] Zoom:', e); }
+    send(`goto/${frame.id}`);
+    setTimeout(() => setStatus('Bereit', ''), 1500);
+  }
+
+  // ==========================================================================
+  // HTML → Markdown
   // ==========================================================================
   function htmlToMarkdown(html) {
     if (!html || !html.includes('<')) return html;
@@ -410,180 +563,26 @@
   }
 
   // ==========================================================================
-  // Frame importieren — liest Inhalt aus Miro SDK, sendet via ltelep://
-  //
-  // Format: ltelep://import-content?id=<id>&title=<enc>&content=<enc>
-  // Der Teleprompter empfängt die Daten direkt — kein API-Key nötig.
-  // ==========================================================================
-  async function importFrame(frame) {
-    setStatus(`Importiere "${frame.title}"…`, 'info');
-
-    try {
-      const content = await getFrameDocContent(frame.id);
-      const params = new URLSearchParams({
-        id:      frame.id,
-        title:   frame.title,
-        content: content,
-      });
-
-      send(`import-content?${params.toString()}`, true);
-
-      inScriptIds.add(frame.id);
-      updateFrameItemStatus(frame.id, true);
-      setStatus(`✓ "${frame.title}" gesendet`, 'ok');
-    } catch (e) {
-      console.error('[LTelep] Import:', e);
-      setStatus(`✗ ${e.message}`, 'error');
-    }
-
-    setTimeout(() => setStatus('Bereit', ''), 3000);
-  }
-
-  // ==========================================================================
-  // Frame entfernen (nur ID nötig)
-  // ==========================================================================
-  function removeFrame(frame) {
-    setStatus(`Entferne "${frame.title}"…`, 'info');
-    send(`remove-frame/${frame.id}`);
-    inScriptIds.delete(frame.id);
-    updateFrameItemStatus(frame.id, false);
-    setTimeout(() => setStatus('Bereit', ''), 2000);
-  }
-
-  // ==========================================================================
-  // Selektion importieren
-  // ==========================================================================
-  async function importSelection() {
-    const selBtn = document.getElementById('selection-btn');
-
-    if (typeof miro === 'undefined') {
-      setStatus('Plugin nur in Miro verfügbar', 'error');
-      return;
-    }
-
-    selBtn.disabled = true;
-    selBtn.textContent = '⏳ Lädt…';
-
-    try {
-      const selection = await miro.board.getSelection();
-      const selectedFrames = selection.filter(item => item.type === 'frame');
-
-      if (selectedFrames.length === 0) {
-        setStatus('Keine Frames ausgewählt', 'error');
-        return;
-      }
-
-      setStatus(`Importiere ${selectedFrames.length} Frames…`, 'info');
-
-      for (let i = 0; i < selectedFrames.length; i++) {
-        const f = selectedFrames[i];
-        const content = await getFrameDocContent(f.id);
-        const params = new URLSearchParams({
-          id:      f.id,
-          title:   f.title || 'Ohne Titel',
-          content: content,
-        });
-
-        send(`import-content?${params.toString()}`, true);
-        inScriptIds.add(f.id);
-        updateFrameItemStatus(f.id, true);
-
-        // 300ms Pause zwischen Frames — gibt dem Teleprompter Zeit
-        if (i < selectedFrames.length - 1) {
-          await new Promise(r => setTimeout(r, 300));
-        }
-      }
-
-      setStatus(`✓ ${selectedFrames.length} Frames importiert`, 'ok');
-      setTimeout(() => setStatus('Bereit', ''), 3000);
-    } catch (e) {
-      console.error('[LTelep] Selektion:', e);
-      setStatus('Fehler: ' + e.message, 'error');
-    } finally {
-      selBtn.disabled = false;
-      selBtn.textContent = '✦ Selektion';
-    }
-  }
-
-  // ==========================================================================
-  // Frame-Navigation: Half-Zoom + Goto
-  // ==========================================================================
-  async function navigateToFrame(frame) {
-    setStatus(`→ ${frame.title}`, 'info');
-    try {
-      const items = await miro.board.get({ type: 'frame', id: frame.id });
-      if (items.length > 0) {
-        const f = items[0];
-        const pad = 1.0;
-        try {
-          await miro.board.viewport.set({
-            viewport: {
-              x: f.x - f.width * (1 + pad * 2) / 2,
-              y: f.y - f.height * (1 + pad * 2) / 2,
-              width:  f.width  * (1 + pad * 2),
-              height: f.height * (1 + pad * 2),
-            }
-          });
-        } catch (_) {
-          await miro.board.viewport.zoomTo(f);
-        }
-      }
-    } catch (e) {
-      console.warn('[LTelep] Zoom:', e);
-    }
-    send(`goto/${frame.id}`);
-    setTimeout(() => setStatus('Bereit', ''), 1500);
-  }
-
-  // ==========================================================================
-  // UI-Helfer
+  // UI Helfer
   // ==========================================================================
   function updateFrameItemStatus(frameId, isIn) {
     const item = document.querySelector(`.frame-item[data-frame-id="${frameId}"]`);
     if (!item) return;
     item.classList.toggle('is-in-script', isIn);
     const dot = item.querySelector('.frame-item-indicator');
-    if (dot) {
-      dot.classList.toggle('in-script', isIn);
-      dot.title = isIn ? 'Im Skript' : 'Nicht im Skript';
-    }
+    if (dot) { dot.classList.toggle('in-script', isIn); dot.title = isIn ? 'Im Skript' : 'Nicht im Skript'; }
   }
 
   // ==========================================================================
   // Speed
   // ==========================================================================
-  function sliderToSpeed(v) {
-    const t = (v - 1) / 99;
-    return Math.round(Math.pow(10, Math.log10(0.1) + t * (Math.log10(10) - Math.log10(0.1))) * 10) / 10;
-  }
-  function speedToSlider(s) {
-    const t = (Math.log10(Math.max(0.1, Math.min(10, s))) - Math.log10(0.1)) / (Math.log10(10) - Math.log10(0.1));
-    return Math.round(1 + t * 99);
-  }
-
-  let currentSpeed = 1.5;
-  let sendTimer = null;
-
-  function onSpeedSlider(val) {
-    currentSpeed = sliderToSpeed(parseInt(val));
-    document.getElementById('speed-display').textContent = currentSpeed.toFixed(1) + 'x';
-  }
-  function sendSpeed() {
-    clearTimeout(sendTimer);
-    sendTimer = setTimeout(() => send('speed/' + currentSpeed.toFixed(1)), 200);
-  }
-  function setSpeedPreset(speed) {
-    currentSpeed = speed;
-    document.getElementById('speed-slider').value = speedToSlider(speed);
-    document.getElementById('speed-display').textContent = speed.toFixed(1) + 'x';
-    send('speed/' + speed.toFixed(1));
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const sl = document.getElementById('speed-slider');
-    sl.value = speedToSlider(1.5);
-    onSpeedSlider(sl.value);
-  });
+  function sliderToSpeed(v) { const t=(v-1)/99; return Math.round(Math.pow(10,Math.log10(0.1)+t*(Math.log10(10)-Math.log10(0.1)))*10)/10; }
+  function speedToSlider(s) { const t=(Math.log10(Math.max(0.1,Math.min(10,s)))-Math.log10(0.1))/(Math.log10(10)-Math.log10(0.1)); return Math.round(1+t*99); }
+  let currentSpeed=1.5, sendTimer=null;
+  function onSpeedSlider(v) { currentSpeed=sliderToSpeed(parseInt(v)); document.getElementById('speed-display').textContent=currentSpeed.toFixed(1)+'x'; }
+  function sendSpeed() { clearTimeout(sendTimer); sendTimer=setTimeout(()=>send('speed/'+currentSpeed.toFixed(1)),200); }
+  function setSpeedPreset(s) { currentSpeed=s; document.getElementById('speed-slider').value=speedToSlider(s); document.getElementById('speed-display').textContent=s.toFixed(1)+'x'; send('speed/'+s.toFixed(1)); }
+  document.addEventListener('DOMContentLoaded',()=>{ const sl=document.getElementById('speed-slider'); sl.value=speedToSlider(1.5); onSpeedSlider(sl.value); });
 </script>
 </body>
 </html>
