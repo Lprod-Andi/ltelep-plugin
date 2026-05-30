@@ -550,7 +550,9 @@
     md = md.replace(/<p[^>]*>/gi, '');
     md = md.replace(/<\/p>/gi, '\n');
     md = md.replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n');
-    md = md.replace(/<\/?[uo]l[^>]*>/gi, '\n');
+    // Doppelte Newlines vor und nach <ul>/<ol> — marked.js braucht Blank-Lines
+    // damit die Liste korrekt erkannt wird (sonst wird sie Teil eines Absatzes)
+    md = md.replace(/<\/?[uo]l[^>]*>/gi, '\n\n');
     md = md.replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**');
     md = md.replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**');
     md = md.replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*');
